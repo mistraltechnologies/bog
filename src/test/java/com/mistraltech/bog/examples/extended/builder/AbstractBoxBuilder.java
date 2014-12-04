@@ -5,13 +5,13 @@ import com.mistraltech.bog.core.AbstractBuilder;
 import com.mistraltech.bog.core.Builder;
 import com.mistraltech.bog.core.PropertyBuilder;
 
-public class BoxBuilder<P1, R extends BoxBuilder<P1, R, T>, T extends Box<P1>> extends AbstractBuilder<T> {
+public abstract class AbstractBoxBuilder<P1, R extends AbstractBoxBuilder<P1, R, T>, T extends Box<P1>> extends AbstractBuilder<T> {
     protected PropertyBuilder<P1> contents = new PropertyBuilder<P1>();
 
-    protected BoxBuilder() {
+    protected AbstractBoxBuilder() {
     }
 
-    protected BoxBuilder(T template) {
+    protected AbstractBoxBuilder(T template) {
         withContents(template.getContents());
     }
 
@@ -37,20 +37,20 @@ public class BoxBuilder<P1, R extends BoxBuilder<P1, R, T>, T extends Box<P1>> e
         }
     }
 
-    public static final class BoxBuilderType<T> extends BoxBuilder<T, BoxBuilderType<T>, Box<T>> {
-        public BoxBuilderType() {
+    public static final class BoxBuilder<T> extends AbstractBoxBuilder<T, BoxBuilder<T>, Box<T>> {
+        public BoxBuilder() {
         }
 
-        public BoxBuilderType(Box<T> template) {
+        public BoxBuilder(Box<T> template) {
             super(template);
         }
 
-        public static <T> BoxBuilderType<T> aBox() {
-            return new BoxBuilderType<T>();
+        public static <T> BoxBuilder<T> aBox() {
+            return new BoxBuilder<T>();
         }
 
-        public static <T> BoxBuilderType<T> aBoxFrom(Box<T> template) {
-            return new BoxBuilderType<T>(template);
+        public static <T> BoxBuilder<T> aBoxFrom(Box<T> template) {
+            return new BoxBuilder<T>(template);
         }
 
         protected Box<T> construct() {

@@ -1,13 +1,14 @@
-package com.mistraltech.bog.examples.extended;
+package com.mistraltech.bog.examples.simple;
 
-import com.mistraltech.bog.examples.extended.builder.AbstractPersonBuilder;
+import com.mistraltech.bog.examples.matcher.PersonMatcher;
 import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
+import com.mistraltech.bog.examples.simple.builder.PersonBuilder;
 import org.junit.Test;
 
-import static com.mistraltech.bog.examples.extended.builder.AbstractPersonBuilder.PersonBuilderType.aPerson;
-import static com.mistraltech.bog.examples.extended.builder.AbstractPersonBuilder.PersonBuilderType.aPersonFrom;
 import static com.mistraltech.bog.examples.matcher.PersonMatcher.aPersonThat;
+import static com.mistraltech.bog.examples.simple.builder.PersonBuilder.aPerson;
+import static com.mistraltech.bog.examples.simple.builder.PersonBuilder.aPersonFrom;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -20,7 +21,7 @@ public class PersonTest {
 
     @Test
     public void canCreateHusbandAndWife() {
-        AbstractPersonBuilder.PersonBuilderType maryBuilder = aPerson().withName("Mary");
+        PersonBuilder maryBuilder = aPerson().withName("Mary");
         Person bob = aPerson().withName("Bob").withSpouse(maryBuilder.create()).build();
         Person mary = maryBuilder.withSpouse(bob).update();
 

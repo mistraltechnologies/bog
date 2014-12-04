@@ -2,7 +2,7 @@ package com.mistraltech.bog.examples.extended.builder;
 
 import com.mistraltech.bog.examples.model.AccountManager;
 
-public class AccountManagerBuilder extends PersonBuilder<AccountManagerBuilder, AccountManager> {
+public class AccountManagerBuilder extends AbstractPersonBuilder<AccountManagerBuilder, AccountManager> {
     public AccountManagerBuilder() {
     }
 

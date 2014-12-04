@@ -6,15 +6,15 @@ import com.mistraltech.bog.core.AbstractBuilder;
 import com.mistraltech.bog.core.Builder;
 import com.mistraltech.bog.core.PropertyBuilder;
 
-public class PersonBuilder<R extends PersonBuilder, T extends Person> extends AbstractBuilder<T> {
+public abstract class AbstractPersonBuilder<R extends AbstractPersonBuilder, T extends Person> extends AbstractBuilder<T> {
     private PropertyBuilder<String> name = new PropertyBuilder<String>();
     private PropertyBuilder<Person> spouse = new PropertyBuilder<Person>();
     private PropertyBuilder<Gender> gender = new PropertyBuilder<Gender>();
 
-    protected PersonBuilder() {
+    protected AbstractPersonBuilder() {
     }
 
-    protected PersonBuilder(T template) {
+    protected AbstractPersonBuilder(T template) {
         withName(template.getName());
         withSpouse(template.getSpouse());
     }
@@ -44,11 +44,6 @@ public class PersonBuilder<R extends PersonBuilder, T extends Person> extends Ab
         return self();
     }
 
-    public R withGender(Builder<? extends Gender> genderBuilder) {
-        this.gender.set(genderBuilder);
-        return self();
-    }
-
     protected PropertyBuilder<String> getName() {
         return name;
     }
@@ -66,7 +61,7 @@ public class PersonBuilder<R extends PersonBuilder, T extends Person> extends Ab
         instance.setSpouse(spouse.getOrDefault(null));
     }
 
-    public static final class PersonBuilderType extends PersonBuilder<PersonBuilderType, Person> {
+    public static final class PersonBuilderType extends AbstractPersonBuilder<PersonBuilderType, Person> {
         public PersonBuilderType() {
         }
 
@@ -83,8 +78,8 @@ public class PersonBuilder<R extends PersonBuilder, T extends Person> extends Ab
         }
 
         protected Person construct() {
-            return new Person(getName().getOrDefault(null),
-                    getGender().getOrDefault(null));
+            return new Person(getName().getOrDefault("Bob"),
+                    getGender().getOrDefault(Gender.Male));
         }
     }
 }

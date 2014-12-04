@@ -15,9 +15,7 @@ public abstract class AbstractBuilder<T> implements Builder<T> {
         this.instance = instance;
     }
 
-    protected T construct() {
-        throw new UnsupportedOperationException("No implementation provided");
-    }
+    protected abstract T construct();
 
     public final T create() {
         setInstance(construct());

@@ -1,5 +1,7 @@
 package com.mistraltech.bog.core;
 
+import static com.mistraltech.bog.core.PreFabricatedBuilder.preFabricated;
+
 public class PropertyBuilder<T> {
     private Builder<? extends T> valueBuilder;
 
@@ -7,7 +9,7 @@ public class PropertyBuilder<T> {
     }
 
     public T get() {
-        return valueBuilder.build();
+        return getOrDefault(null);
     }
 
     public T getOrDefault(T defaultValue) {
@@ -19,7 +21,7 @@ public class PropertyBuilder<T> {
     }
 
     public void set(T value) {
-        this.valueBuilder = new PreFabricatedBuilder<T>(value);
+        this.valueBuilder = preFabricated(value);
     }
 
     public boolean hasValue() {

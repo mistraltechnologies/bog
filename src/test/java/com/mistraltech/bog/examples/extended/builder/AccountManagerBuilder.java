@@ -19,6 +19,6 @@ public class AccountManagerBuilder extends AbstractPersonBuilder<AccountManagerB
     }
 
     protected AccountManager construct() {
-        return new AccountManager(getName().getOrDefault("Steve"));
+        return new AccountManager(getNameOrDefault("Steve"));
     }
 }

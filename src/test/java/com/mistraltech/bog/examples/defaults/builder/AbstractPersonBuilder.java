@@ -1,10 +1,10 @@
-package com.mistraltech.bog.examples.extended.builder;
+package com.mistraltech.bog.examples.defaults.builder;
 
-import com.mistraltech.bog.examples.model.Gender;
-import com.mistraltech.bog.examples.model.Person;
 import com.mistraltech.bog.core.AbstractBuilder;
 import com.mistraltech.bog.core.Builder;
 import com.mistraltech.bog.core.PropertyBuilder;
+import com.mistraltech.bog.examples.model.Gender;
+import com.mistraltech.bog.examples.model.Person;
 
 public abstract class AbstractPersonBuilder<R extends AbstractPersonBuilder, T extends Person> extends AbstractBuilder<T> {
     private PropertyBuilder<String> name = new PropertyBuilder<String>();
@@ -44,21 +44,21 @@ public abstract class AbstractPersonBuilder<R extends AbstractPersonBuilder, T e
         return self();
     }
 
-    protected String getNameOrDefault(String defaultValue) {
-        return name.getOrDefault(defaultValue);
+    protected String getName() {
+        return name.get();
     }
 
-    protected Person getSpouseOrDefault(Person defaultValue) {
-        return spouse.getOrDefault(defaultValue);
+    protected Person getSpouse() {
+        return spouse.get();
     }
 
-    protected Gender getGenderOrDefault(Gender defaultValue) {
-        return gender.getOrDefault(defaultValue);
+    protected Gender getGender() {
+        return gender.get();
     }
 
     @Override
     protected void assign(T instance) {
-        instance.setSpouse(getSpouseOrDefault(null));
+        instance.setSpouse(getSpouse());
     }
 
     public static final class PersonBuilderType extends AbstractPersonBuilder<PersonBuilderType, Person> {
@@ -78,7 +78,7 @@ public abstract class AbstractPersonBuilder<R extends AbstractPersonBuilder, T e
         }
 
         protected Person construct() {
-            return new Person(getNameOrDefault("Bob"), getGenderOrDefault(Gender.Male));
+            return new Person(getName(), getGender());
         }
     }
 }

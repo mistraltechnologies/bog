@@ -1,4 +1,5 @@
 package com.mistraltech.bog.core.picker;
 
-public class RandomPickerStrategy {
+public interface Picker<T> {
+    T pick();
 }

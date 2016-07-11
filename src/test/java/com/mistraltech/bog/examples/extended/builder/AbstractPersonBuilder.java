@@ -58,7 +58,7 @@ public abstract class AbstractPersonBuilder<R extends AbstractPersonBuilder, T e
 
     @Override
     protected void assign(T instance) {
-        instance.setSpouse(spouse.getOrDefault(null));
+        instance.setSpouse(spouse.getOrNull());
     }
 
     public static final class PersonBuilderType extends AbstractPersonBuilder<PersonBuilderType, Person> {

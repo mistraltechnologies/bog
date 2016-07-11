@@ -1,8 +1,10 @@
-package com.mistraltech.bog.examples.simple.builder;
+package com.mistraltech.bog.examples.defaultpicker.builder;
 
 import com.mistraltech.bog.core.AbstractBuilder;
 import com.mistraltech.bog.core.Builder;
 import com.mistraltech.bog.core.PropertyBuilder;
+import com.mistraltech.bog.core.picker.ArrayPicker;
+import com.mistraltech.bog.core.picker.RegexStringPicker;
 import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
 
@@ -54,7 +56,9 @@ public class PersonBuilder extends AbstractBuilder<Person> {
 
     @Override
     protected Person construct() {
-        return new Person(name.getOrDefault("Bob"), gender.getOrDefault(Gender.Male));
+        return new Person(
+                name.getOrDefault(new RegexStringPicker("Bob|Bill")),
+                gender.getOrDefault(new ArrayPicker<Gender>(Gender.values())));
     }
 
     @Override

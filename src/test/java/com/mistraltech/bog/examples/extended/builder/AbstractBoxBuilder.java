@@ -5,8 +5,10 @@ import com.mistraltech.bog.core.Builder;
 import com.mistraltech.bog.core.PropertyBuilder;
 import com.mistraltech.bog.examples.model.Box;
 
+import static com.mistraltech.bog.core.PropertyBuilder.propertyBuilder;
+
 public abstract class AbstractBoxBuilder<P1, R extends AbstractBoxBuilder<P1, R, T>, T extends Box<P1>> extends AbstractBuilder<T> {
-    protected PropertyBuilder<P1> contents = new PropertyBuilder<P1>();
+    protected PropertyBuilder<P1> contents = propertyBuilder();
 
     protected AbstractBoxBuilder() {
     }

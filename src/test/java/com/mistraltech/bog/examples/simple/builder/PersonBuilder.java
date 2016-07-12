@@ -6,10 +6,12 @@ import com.mistraltech.bog.core.PropertyBuilder;
 import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
 
+import static com.mistraltech.bog.core.PropertyBuilder.propertyBuilder;
+
 public class PersonBuilder extends AbstractBuilder<Person> {
-    private PropertyBuilder<String> name = new PropertyBuilder<String>();
-    private PropertyBuilder<Person> spouse = new PropertyBuilder<Person>();
-    private PropertyBuilder<Gender> gender = new PropertyBuilder<Gender>();
+    private PropertyBuilder<String> name = propertyBuilder();
+    private PropertyBuilder<Person> spouse = propertyBuilder();
+    private PropertyBuilder<Gender> gender = propertyBuilder();
 
     protected PersonBuilder() {
     }

@@ -2,10 +2,14 @@ package com.mistraltech.bog.core;
 
 import com.mistraltech.bog.core.picker.Picker;
 
-public class PropertyBuilder<T> {
+public final class PropertyBuilder<T> {
     private Builder<? extends T> valueBuilder;
 
-    public PropertyBuilder() {
+    private PropertyBuilder() {
+    }
+
+    public static <T> PropertyBuilder<T> propertyBuilder() {
+        return new PropertyBuilder<T>();
     }
 
     public T get() {

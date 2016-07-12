@@ -1,6 +1,5 @@
 package com.mistraltech.bog.examples.simple;
 
-import com.mistraltech.bog.examples.matcher.PersonMatcher;
 import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
 import com.mistraltech.bog.examples.simple.builder.PersonBuilder;
@@ -9,14 +8,16 @@ import org.junit.Test;
 import static com.mistraltech.bog.examples.matcher.PersonMatcher.aPersonThat;
 import static com.mistraltech.bog.examples.simple.builder.PersonBuilder.aPerson;
 import static com.mistraltech.bog.examples.simple.builder.PersonBuilder.aPersonFrom;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class PersonTest {
     @Test
     public void canCreatePerson() {
         Person bob = aPerson().withName("Bob").build();
-        assertThat(bob.getName(), is(equalTo("Bob")));
+        assertThat(bob, is(aPersonThat().hasName(equalTo("Bob"))));
     }
 
     @Test
@@ -25,8 +26,8 @@ public class PersonTest {
         Person bob = aPerson().withName("Bob").withSpouse(maryBuilder.create()).build();
         Person mary = maryBuilder.withSpouse(bob).update();
 
-        assertThat(mary.getSpouse(), is(sameInstance(bob)));
-        assertThat(bob.getSpouse(), is(sameInstance(mary)));
+        assertThat(mary, is(aPersonThat().hasSpouse(sameInstance(bob))));
+        assertThat(bob, is(aPersonThat().hasSpouse(sameInstance(mary))));
     }
 
     @Test

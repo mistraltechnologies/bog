@@ -2,68 +2,36 @@ package com.mistraltech.bog.examples.matcher;
 
 import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
-import com.mistraltech.smog.core.CompositePropertyMatcher;
-import com.mistraltech.smog.core.MatchAccumulator;
-import com.mistraltech.smog.core.PropertyMatcher;
-import com.mistraltech.smog.core.ReflectingPropertyMatcher;
 import com.mistraltech.smog.core.annotation.Matches;
 import org.hamcrest.Matcher;
 
-import static org.hamcrest.CoreMatchers.equalTo;
+import static com.mistraltech.smog.proxy.javassist.JavassistMatcherGenerator.matcherOf;
 
-@Matches(Person.class)
-public final class PersonMatcher extends CompositePropertyMatcher<Person> {
-    private static final String MATCHED_OBJECT_DESCRIPTION = "a Person";
-    private final PropertyMatcher<Person> spouseMatcher = new ReflectingPropertyMatcher<Person>("spouse", this);
-    private final PropertyMatcher<String> nameMatcher = new ReflectingPropertyMatcher<String>("name", this);
-    private final PropertyMatcher<Gender> genderMatcher = new ReflectingPropertyMatcher<Gender>("gender", this);
-
-    private PersonMatcher(final String matchedObjectDescription, final Person template) {
-        super(matchedObjectDescription);
-        if (template != null) {
-            hasSpouse(template.getSpouse());
-            hasName(template.getName());
-            hasGender(template.getGender());
-        }
+@Matches(value = com.mistraltech.bog.examples.model.Person.class, description = "a Person")
+public interface PersonMatcher extends Matcher<Person> {
+    static PersonMatcher aPersonThat() {
+        return matcherOf(PersonMatcher.class);
     }
 
-    public static PersonMatcher aPersonThat() {
-        return new PersonMatcher(MATCHED_OBJECT_DESCRIPTION, null);
+    static PersonMatcher aPersonLike(final Person template) {
+        return matcherOf(PersonMatcher.class).like(template);
     }
 
-    public static PersonMatcher aPersonLike(final Person template) {
-        return new PersonMatcher(MATCHED_OBJECT_DESCRIPTION, template);
-    }
+    PersonMatcher like(final Person template);
 
-    public PersonMatcher hasSpouse(final Person spouse) {
-        return hasSpouse(equalTo(spouse));
-    }
+    PersonMatcher hasGender(final Gender gender);
 
-    public PersonMatcher hasSpouse(final Matcher<? super Person> spouseMatcher) {
-        this.spouseMatcher.setMatcher(spouseMatcher);
-        return this;
-    }
+    PersonMatcher hasGender(final Matcher<? super Gender> genderMatcher);
 
-    public PersonMatcher hasName(final String name) {
-        return hasName(equalTo(name));
-    }
+    PersonMatcher hasName(final String name);
 
-    public PersonMatcher hasName(final Matcher<? super String> nameMatcher) {
-        this.nameMatcher.setMatcher(nameMatcher);
-        return this;
-    }
+    PersonMatcher hasName(final Matcher<? super String> nameMatcher);
 
-    public PersonMatcher hasGender(final Gender gender) {
-        return hasGender(equalTo(gender));
-    }
+    PersonMatcher hasSpouse(final Person spouse);
 
-    public PersonMatcher hasGender(final Matcher<? super Gender> genderMatcher) {
-        this.genderMatcher.setMatcher(genderMatcher);
-        return this;
-    }
+    PersonMatcher hasSpouse(final Matcher<? super Person> spouseMatcher);
 
-    @Override
-    protected void matchesSafely(final Person item, final MatchAccumulator matchAccumulator) {
-        super.matchesSafely(item, matchAccumulator);
-    }
+    PersonMatcher hasAge(final int age);
+
+    PersonMatcher hasAge(final Matcher<? super Integer> ageMatcher);
 }

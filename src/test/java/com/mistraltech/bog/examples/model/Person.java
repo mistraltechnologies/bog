@@ -6,6 +6,7 @@ public class Person {
     private String name;
     private Person spouse;
     private Gender gender;
+    private int age;
 
     @ConstructorProperties({"name", "gender"})
     public Person(String name, Gender gender) {
@@ -29,12 +30,21 @@ public class Person {
         return gender;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
                 "name='" + name + '\'' +
                 ", spouse=" + spouse +
                 ", gender=" + gender +
+                ", age=" + age +
                 '}';
     }
 }

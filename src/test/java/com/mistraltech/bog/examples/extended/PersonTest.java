@@ -8,7 +8,9 @@ import org.junit.Test;
 import static com.mistraltech.bog.examples.extended.builder.AbstractPersonBuilder.PersonBuilderType.aPerson;
 import static com.mistraltech.bog.examples.extended.builder.AbstractPersonBuilder.PersonBuilderType.aPersonFrom;
 import static com.mistraltech.bog.examples.matcher.PersonMatcher.aPersonThat;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class PersonTest {

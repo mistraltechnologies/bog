@@ -6,8 +6,12 @@ public class RegexStringPicker implements Picker<String> {
     private final String regex;
 
 
-    public RegexStringPicker(String regex) {
+    protected RegexStringPicker(String regex) {
         this.regex = regex;
+    }
+
+    public static RegexStringPicker regexStringPicker(String regex) {
+        return new RegexStringPicker(regex);
     }
 
     @Override

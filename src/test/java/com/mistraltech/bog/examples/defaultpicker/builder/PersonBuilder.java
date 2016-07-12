@@ -3,10 +3,11 @@ package com.mistraltech.bog.examples.defaultpicker.builder;
 import com.mistraltech.bog.core.AbstractBuilder;
 import com.mistraltech.bog.core.Builder;
 import com.mistraltech.bog.core.PropertyBuilder;
-import com.mistraltech.bog.core.picker.ArrayPicker;
-import com.mistraltech.bog.core.picker.RegexStringPicker;
 import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
+
+import static com.mistraltech.bog.core.picker.EnumPicker.enumPicker;
+import static com.mistraltech.bog.core.picker.RegexStringPicker.regexStringPicker;
 
 public class PersonBuilder extends AbstractBuilder<Person> {
     private PropertyBuilder<String> name = new PropertyBuilder<String>();
@@ -57,8 +58,8 @@ public class PersonBuilder extends AbstractBuilder<Person> {
     @Override
     protected Person construct() {
         return new Person(
-                name.getOrDefault(new RegexStringPicker("Bob|Bill")),
-                gender.getOrDefault(new ArrayPicker<Gender>(Gender.values())));
+                name.getOrDefault(regexStringPicker("Bob|Bill")),
+                gender.getOrDefault(enumPicker(Gender.class)));
     }
 
     @Override

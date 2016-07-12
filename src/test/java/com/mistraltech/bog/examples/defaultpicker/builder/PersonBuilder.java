@@ -10,10 +10,10 @@ import static com.mistraltech.bog.core.PropertyBuilder.propertyBuilder;
 import static com.mistraltech.bog.core.picker.EnumValuePicker.enumPicker;
 import static com.mistraltech.bog.core.picker.RegexStringValuePicker.regexStringPicker;
 
-public class PersonBuilder extends AbstractBuilder<Person> {
-    private PropertyBuilder<String> name = propertyBuilder();
+public final class PersonBuilder extends AbstractBuilder<Person> {
+    private PropertyBuilder<String> name = propertyBuilder(regexStringPicker("Bob|Bill"));
     private PropertyBuilder<Person> spouse = propertyBuilder();
-    private PropertyBuilder<Gender> gender = propertyBuilder();
+    private PropertyBuilder<Gender> gender = propertyBuilder(enumPicker(Gender.class));
 
     protected PersonBuilder() {
     }
@@ -59,12 +59,12 @@ public class PersonBuilder extends AbstractBuilder<Person> {
     @Override
     protected Person construct() {
         return new Person(
-                name.getOrDefault(regexStringPicker("Bob|Bill")),
-                gender.getOrDefault(enumPicker(Gender.class)));
+                name.get(),
+                gender.get());
     }
 
     @Override
     protected void assign(Person instance) {
-        instance.setSpouse(spouse.getOrNull());
+        instance.setSpouse(spouse.get());
     }
 }

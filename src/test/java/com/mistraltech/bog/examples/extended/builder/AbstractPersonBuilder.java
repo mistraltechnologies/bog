@@ -9,9 +9,9 @@ import com.mistraltech.bog.examples.model.Person;
 import static com.mistraltech.bog.core.PropertyBuilder.propertyBuilder;
 
 public abstract class AbstractPersonBuilder<R extends AbstractPersonBuilder, T extends Person> extends AbstractBuilder<T> {
-    private PropertyBuilder<String> name = propertyBuilder();
+    private PropertyBuilder<String> name = propertyBuilder("Bob");
     private PropertyBuilder<Person> spouse = propertyBuilder();
-    private PropertyBuilder<Gender> gender = propertyBuilder();
+    private PropertyBuilder<Gender> gender = propertyBuilder(Gender.Male);
 
     protected AbstractPersonBuilder() {
     }
@@ -60,28 +60,28 @@ public abstract class AbstractPersonBuilder<R extends AbstractPersonBuilder, T e
 
     @Override
     protected void assign(T instance) {
-        instance.setSpouse(spouse.getOrNull());
+        instance.setSpouse(spouse.get());
     }
 
-    public static final class PersonBuilderType extends AbstractPersonBuilder<PersonBuilderType, Person> {
-        public PersonBuilderType() {
+    public static final class PersonBuilder extends AbstractPersonBuilder<PersonBuilder, Person> {
+        public PersonBuilder() {
         }
 
-        public PersonBuilderType(Person template) {
+        public PersonBuilder(Person template) {
             super(template);
         }
 
-        public static PersonBuilderType aPerson() {
-            return new PersonBuilderType();
+        public static PersonBuilder aPerson() {
+            return new PersonBuilder();
         }
 
-        public static PersonBuilderType aPersonFrom(Person template) {
-            return new PersonBuilderType(template);
+        public static PersonBuilder aPersonFrom(Person template) {
+            return new PersonBuilder(template);
         }
 
         protected Person construct() {
-            return new Person(getName().getOrDefault("Bob"),
-                    getGender().getOrDefault(Gender.Male));
+            return new Person(getName().get(),
+                    getGender().get());
         }
     }
 }

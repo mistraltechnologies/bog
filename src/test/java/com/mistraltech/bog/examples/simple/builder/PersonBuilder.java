@@ -8,15 +8,15 @@ import com.mistraltech.bog.examples.model.Person;
 
 import static com.mistraltech.bog.core.PropertyBuilder.propertyBuilder;
 
-public class PersonBuilder extends AbstractBuilder<Person> {
-    private PropertyBuilder<String> name = propertyBuilder();
+public final class PersonBuilder extends AbstractBuilder<Person> {
+    private PropertyBuilder<String> name = propertyBuilder("Bob");
     private PropertyBuilder<Person> spouse = propertyBuilder();
-    private PropertyBuilder<Gender> gender = propertyBuilder();
+    private PropertyBuilder<Gender> gender = propertyBuilder(Gender.Male);
 
-    protected PersonBuilder() {
+    private PersonBuilder() {
     }
 
-    protected PersonBuilder(Person template) {
+    private PersonBuilder(Person template) {
         withName(template.getName());
         withSpouse(template.getSpouse());
     }
@@ -56,11 +56,11 @@ public class PersonBuilder extends AbstractBuilder<Person> {
 
     @Override
     protected Person construct() {
-        return new Person(name.getOrDefault("Bob"), gender.getOrDefault(Gender.Male));
+        return new Person(name.get(), gender.get());
     }
 
     @Override
     protected void assign(Person instance) {
-        instance.setSpouse(spouse.getOrNull());
+        instance.setSpouse(spouse.get());
     }
 }

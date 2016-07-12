@@ -1,10 +1,10 @@
 package com.mistraltech.bog.examples.extended.builder;
 
-import com.mistraltech.bog.examples.model.Gender;
-import com.mistraltech.bog.examples.model.Person;
 import com.mistraltech.bog.core.AbstractBuilder;
 import com.mistraltech.bog.core.Builder;
 import com.mistraltech.bog.core.PropertyBuilder;
+import com.mistraltech.bog.examples.model.Gender;
+import com.mistraltech.bog.examples.model.Person;
 
 public abstract class AbstractPersonBuilder<R extends AbstractPersonBuilder, T extends Person> extends AbstractBuilder<T> {
     private PropertyBuilder<String> name = new PropertyBuilder<String>();

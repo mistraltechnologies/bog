@@ -2,16 +2,16 @@ package com.mistraltech.bog.core.picker;
 
 import com.mifmif.common.regex.Generex;
 
-public class RegexStringPicker implements Picker<String> {
+public class RegexStringValuePicker implements ValuePicker<String> {
     private final String regex;
 
 
-    protected RegexStringPicker(String regex) {
+    protected RegexStringValuePicker(String regex) {
         this.regex = regex;
     }
 
-    public static RegexStringPicker regexStringPicker(String regex) {
-        return new RegexStringPicker(regex);
+    public static RegexStringValuePicker regexStringPicker(String regex) {
+        return new RegexStringValuePicker(regex);
     }
 
     @Override

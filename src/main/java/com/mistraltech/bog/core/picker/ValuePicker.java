@@ -1,5 +1,5 @@
 package com.mistraltech.bog.core.picker;
 
-public interface Picker<T> {
+public interface ValuePicker<T> {
     T pick();
 }

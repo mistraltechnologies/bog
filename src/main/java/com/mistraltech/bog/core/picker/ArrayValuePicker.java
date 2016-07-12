@@ -2,15 +2,15 @@ package com.mistraltech.bog.core.picker;
 
 import java.util.Random;
 
-public class ArrayPicker<T> implements Picker<T> {
+public class ArrayValuePicker<T> implements ValuePicker<T> {
     private T[] values;
 
-    protected ArrayPicker(T[] values) {
+    protected ArrayValuePicker(T[] values) {
         this.values = values;
     }
 
-    public static <T> ArrayPicker<T> arrayPicker(T[] values) {
-        return new ArrayPicker<>(values);
+    public static <T> ArrayValuePicker<T> arrayPicker(T[] values) {
+        return new ArrayValuePicker<>(values);
     }
 
     @Override

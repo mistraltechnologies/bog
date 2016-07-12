@@ -1,6 +1,6 @@
 package com.mistraltech.bog.core;
 
-import com.mistraltech.bog.core.picker.Picker;
+import com.mistraltech.bog.core.picker.ValuePicker;
 
 public final class PropertyBuilder<T> {
     private Builder<? extends T> valueBuilder;
@@ -24,8 +24,8 @@ public final class PropertyBuilder<T> {
         return hasValue() ? get() : null;
     }
 
-    public T getOrDefault(Picker<T> picker) {
-        return hasValue() ? get() : picker.pick();
+    public T getOrDefault(ValuePicker<T> valuePicker) {
+        return hasValue() ? get() : valuePicker.pick();
     }
 
     public void set(Builder<? extends T> builder) {

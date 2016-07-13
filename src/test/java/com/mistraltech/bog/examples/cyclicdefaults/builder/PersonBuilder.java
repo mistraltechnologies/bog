@@ -1,4 +1,4 @@
-package com.mistraltech.bog.examples.simple.builder;
+package com.mistraltech.bog.examples.cyclicdefaults.builder;
 
 import com.mistraltech.bog.core.AbstractBuilder;
 import com.mistraltech.bog.core.Builder;
@@ -7,11 +7,14 @@ import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
 
 import static com.mistraltech.bog.core.PropertyBuilder.propertyBuilder;
+import static com.mistraltech.bog.core.picker.IntegerValuePicker.integerValuePicker;
+import static com.mistraltech.bog.core.picker.RegexStringValuePicker.regexStringValuePicker;
 
 public final class PersonBuilder extends AbstractBuilder<Person> {
-    private PropertyBuilder<String> name = propertyBuilder("Bob");
     private PropertyBuilder<Person> spouse = propertyBuilder();
-    private PropertyBuilder<Gender> gender = propertyBuilder(Gender.Male);
+    private PropertyBuilder<Integer> age = propertyBuilder(integerValuePicker(18, 40));
+    private PropertyBuilder<String> name = propertyBuilder(() -> age.get() > 30 ? "Bill" : "Bob");
+    private PropertyBuilder<Gender> gender = propertyBuilder(() -> name.get().equals("Bill") ? Gender.Male : Gender.Female);
 
     private PersonBuilder() {
     }

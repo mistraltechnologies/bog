@@ -1,4 +1,4 @@
-package com.mistraltech.bog.examples.simple.builder;
+package com.mistraltech.bog.examples.iface.builder;
 
 import com.mistraltech.bog.core.AbstractBuilder;
 import com.mistraltech.bog.core.Builder;
@@ -6,44 +6,39 @@ import com.mistraltech.bog.core.PropertyBuilder;
 import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
 
-import static com.mistraltech.bog.core.PropertyBuilder.propertyBuilder;
+public class PersonBuilderImpl extends AbstractBuilder<Person> implements PersonBuilder {
+    private final PropertyBuilder<String> name = PropertyBuilder.propertyBuilder(getDefaultName());
+    private final PropertyBuilder<Person> spouse = PropertyBuilder.propertyBuilder();
+    private final PropertyBuilder<Gender> gender = PropertyBuilder.propertyBuilder(getDefaultGender());
 
-public final class PersonBuilder extends AbstractBuilder<Person> {
-    private PropertyBuilder<String> name = propertyBuilder("Bob");
-    private PropertyBuilder<Person> spouse = propertyBuilder();
-    private PropertyBuilder<Gender> gender = propertyBuilder(Gender.Male);
-
-    private PersonBuilder() {
+    PersonBuilderImpl() {
     }
 
-    private PersonBuilder(Person template) {
+    PersonBuilderImpl(Person template) {
         withName(template.getName());
         withSpouse(template.getSpouse());
+        withGender(template.getGender());
     }
 
-    public static PersonBuilder aPerson() {
-        return new PersonBuilder();
-    }
-
-    public static PersonBuilder aPersonFrom(Person template) {
-        return new PersonBuilder(template);
-    }
-
+    @Override
     public PersonBuilder withName(String name) {
         this.name.set(name);
         return this;
     }
 
+    @Override
     public PersonBuilder withSpouse(Person spouse) {
         this.spouse.set(spouse);
         return this;
     }
 
+    @Override
     public PersonBuilder withSpouse(Builder<? extends Person> spouseBuilder) {
         this.spouse.set(spouseBuilder);
         return this;
     }
 
+    @Override
     public PersonBuilder withGender(Gender gender) {
         this.gender.set(gender);
         return this;
@@ -56,6 +51,6 @@ public final class PersonBuilder extends AbstractBuilder<Person> {
 
     @Override
     protected void assign(Person instance) {
-        instance.setSpouse(spouse.get());
+        getInstance().setSpouse(spouse.get());
     }
 }

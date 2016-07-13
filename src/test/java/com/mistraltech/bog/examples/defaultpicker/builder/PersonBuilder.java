@@ -8,10 +8,10 @@ import com.mistraltech.bog.examples.model.Person;
 
 import static com.mistraltech.bog.core.PropertyBuilder.propertyBuilder;
 import static com.mistraltech.bog.core.picker.EnumValuePicker.enumPicker;
-import static com.mistraltech.bog.core.picker.RegexStringValuePicker.regexStringPicker;
+import static com.mistraltech.bog.core.picker.RegexStringValuePicker.regexStringValuePicker;
 
 public final class PersonBuilder extends AbstractBuilder<Person> {
-    private PropertyBuilder<String> name = propertyBuilder(regexStringPicker("Bob|Bill"));
+    private PropertyBuilder<String> name = propertyBuilder(regexStringValuePicker("Bob|Bill"));
     private PropertyBuilder<Person> spouse = propertyBuilder();
     private PropertyBuilder<Gender> gender = propertyBuilder(enumPicker(Gender.class));
 

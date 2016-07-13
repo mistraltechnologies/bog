@@ -9,7 +9,7 @@ public class RegexStringValuePicker extends CachedValuePicker<String> {
         this.regex = regex;
     }
 
-    public static RegexStringValuePicker regexStringPicker(String regex) {
+    public static RegexStringValuePicker regexStringValuePicker(String regex) {
         return new RegexStringValuePicker(regex);
     }
 

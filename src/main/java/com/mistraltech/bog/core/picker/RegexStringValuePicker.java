@@ -2,9 +2,8 @@ package com.mistraltech.bog.core.picker;
 
 import com.mifmif.common.regex.Generex;
 
-public class RegexStringValuePicker implements ValuePicker<String> {
+public class RegexStringValuePicker extends CachedValuePicker<String> {
     private final String regex;
-
 
     protected RegexStringValuePicker(String regex) {
         this.regex = regex;
@@ -15,7 +14,7 @@ public class RegexStringValuePicker implements ValuePicker<String> {
     }
 
     @Override
-    public String pick() {
+    protected String pickOnce() {
         final Generex generex = new Generex(regex);
         return generex.random();
     }

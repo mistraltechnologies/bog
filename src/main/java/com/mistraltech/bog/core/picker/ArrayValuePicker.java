@@ -2,7 +2,7 @@ package com.mistraltech.bog.core.picker;
 
 import java.util.Random;
 
-public class ArrayValuePicker<T> implements ValuePicker<T> {
+public class ArrayValuePicker<T> extends CachedValuePicker<T> {
     private T[] values;
 
     protected ArrayValuePicker(T[] values) {
@@ -14,7 +14,7 @@ public class ArrayValuePicker<T> implements ValuePicker<T> {
     }
 
     @Override
-    public T pick() {
+    protected T pickOnce() {
         int n = new Random().nextInt(values.length);
         return values[n];
     }

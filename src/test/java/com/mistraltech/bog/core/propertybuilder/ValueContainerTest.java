@@ -237,7 +237,7 @@ public class ValueContainerTest {
         assertFalse("after take()", valueContainer.hasValue());
     }
 
-    private class IntBuilder implements Builder<Integer> {
+    private static class IntBuilder implements Builder<Integer> {
         private int nextValue;
 
         IntBuilder(Integer start) {

@@ -52,7 +52,7 @@ public class AbstractBuilderTest {
         assertThat(bb1, is(sameInstance(bb2)));
     }
 
-    private class BooleanBox {
+    private static class BooleanBox {
         private boolean value = false;
 
         public void set() {
@@ -64,7 +64,7 @@ public class AbstractBuilderTest {
         }
     }
 
-    private class BooleanBoxBuilder extends AbstractBuilder<BooleanBox> {
+    private static class BooleanBoxBuilder extends AbstractBuilder<BooleanBox> {
 
         @Override
         protected BooleanBox construct() {

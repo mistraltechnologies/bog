@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 
-import static com.mistraltech.bog.core.picker.ArrayValuePicker.arrayPicker;
+import static com.mistraltech.bog.core.picker.ArrayValuePicker.arrayValuePicker;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -16,17 +16,17 @@ public class ArrayValuePickerTest {
 
     @Test(expected = NullPointerException.class)
     public void cannotConstructWithNullValues() {
-        arrayPicker(null);
+        arrayValuePicker(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void cannotConstructWithNoValues() {
-        arrayPicker(new String[0]);
+        arrayValuePicker(new String[0]);
     }
 
     @Test
     public void picksFromSingleValueArray() {
-        ArrayValuePicker<String> picker = arrayPicker(new String[]{"Bob"});
+        ArrayValuePicker<String> picker = arrayValuePicker(new String[]{"Bob"});
 
         assertThat(picker.pick(), is(equalTo("Bob")));
     }
@@ -35,7 +35,7 @@ public class ArrayValuePickerTest {
     public void picksAllValuesFromMultiValueArrayEventually() {
         Integer[] values = new Integer[]{1, 2, 3, 4, 5};
 
-        ArrayValuePicker<Integer> picker = arrayPicker(values);
+        ArrayValuePicker<Integer> picker = arrayValuePicker(values);
         Set<Integer> remaining = new TreeSet<>(Arrays.asList(values));
 
         while (remaining.size() > 0) {

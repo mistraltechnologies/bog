@@ -17,7 +17,7 @@ public class ArrayValuePicker<T> implements ValuePicker<T> {
         this.values = values;
     }
 
-    public static <T> ArrayValuePicker<T> arrayPicker(T[] values) {
+    public static <T> ArrayValuePicker<T> arrayValuePicker(T[] values) {
         return new ArrayValuePicker<>(values);
     }
 

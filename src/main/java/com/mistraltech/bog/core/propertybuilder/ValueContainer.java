@@ -4,8 +4,11 @@ import com.mistraltech.bog.core.Builder;
 import com.mistraltech.bog.core.PreFabricatedBuilder;
 import com.mistraltech.bog.core.picker.ValuePicker;
 
+import java.util.Objects;
+
 import static com.mistraltech.bog.core.picker.NullValuePicker.nullValuePicker;
 import static com.mistraltech.bog.core.picker.SingleValuePicker.singleValuePicker;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Responsible for holding and providing a value to a caller.
@@ -56,7 +59,7 @@ public final class ValueContainer<T> implements ValueProvider<T> {
      * @return an instance configured with the supplied default picker
      */
     public static <T> ValueContainer<T> valueContainer(ValuePicker<? extends T> defaultPicker) {
-        return new ValueContainer<>(defaultPicker);
+        return new ValueContainer<>(requireNonNull(defaultPicker));
     }
 
     /**
@@ -67,7 +70,7 @@ public final class ValueContainer<T> implements ValueProvider<T> {
      * @return an instance configured with the supplied default value
      */
     public static <T> ValueContainer<T> valueContainer(T defaultValue) {
-        return valueContainer(singleValuePicker(defaultValue));
+        return valueContainer(singleValuePicker(requireNonNull(defaultValue)));
     }
 
     /**

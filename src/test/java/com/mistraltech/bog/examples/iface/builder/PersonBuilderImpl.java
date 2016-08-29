@@ -51,6 +51,6 @@ public class PersonBuilderImpl extends AbstractBuilder<Person> implements Person
 
     @Override
     protected void assign(Person instance) {
-        getInstance().setSpouse(spouse.get());
+        instance.setSpouse(spouse.get());
     }
 }

@@ -17,35 +17,27 @@ package com.mistraltech.bog.core;
 public abstract class AbstractBuilder<T> implements Builder<T> {
     private T instance;
 
-    protected T getInstance() {
-        if (instance == null) {
-            throw new IllegalStateException("Not constructed");
-        }
-
-        return instance;
-    }
-
-    protected void setInstance(T instance) {
-        this.instance = instance;
-    }
-
-    protected abstract T construct();
-
     public final T create() {
-        setInstance(construct());
+        instance = construct();
         return instance;
     }
 
     public final T build() {
         create();
-        update();
-        return getInstance();
+        return update();
     }
 
     public final T update() {
+        if (instance == null) {
+            throw new IllegalStateException("Not created");
+        }
+
         assign(instance);
+
         return instance;
     }
+
+    protected abstract T construct();
 
     protected abstract void assign(T instance);
 }

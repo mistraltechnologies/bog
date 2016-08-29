@@ -2,19 +2,26 @@ package com.mistraltech.bog.examples.cyclicdefaults.builder;
 
 import com.mistraltech.bog.core.AbstractBuilder;
 import com.mistraltech.bog.core.Builder;
+import com.mistraltech.bog.core.picker.EnumValuePicker;
 import com.mistraltech.bog.core.propertybuilder.PropertyBuilder;
+import com.mistraltech.bog.core.propertybuilder.PropertyValue;
 import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
 
-import static com.mistraltech.bog.core.propertybuilder.PropertyBuilder.propertyBuilder;
 import static com.mistraltech.bog.core.picker.IntegerValuePicker.integerValuePicker;
-import static com.mistraltech.bog.core.picker.RegexStringValuePicker.regexStringValuePicker;
+import static com.mistraltech.bog.core.propertybuilder.PropertyBuilder.propertyBuilder;
 
 public final class PersonBuilder extends AbstractBuilder<Person> {
     private PropertyBuilder<Person> spouse = propertyBuilder();
+
+    private PropertyBuilder<Gender> gender = propertyBuilder(() ->
+            spouse.preview() == null ?
+                    EnumValuePicker.enumPicker(Gender.class).pick() : (spouse.preview().getGender() == Gender.Male ?
+                    Gender.Female : Gender.Male));
+
     private PropertyBuilder<Integer> age = propertyBuilder(integerValuePicker(18, 40));
-    private PropertyBuilder<String> name = propertyBuilder(() -> age.get() > 30 ? "Bill" : "Bob");
-    private PropertyBuilder<Gender> gender = propertyBuilder(() -> name.get().equals("Bill") ? Gender.Male : Gender.Female);
+
+    private PropertyBuilder<String> name = propertyBuilder(() -> gender.preview() == Gender.Male ? "Bill" : "Bob");
 
     private PersonBuilder() {
     }
@@ -52,6 +59,18 @@ public final class PersonBuilder extends AbstractBuilder<Person> {
         return this;
     }
 
+    protected PropertyValue<Integer> age() {
+        return age;
+    }
+
+    protected PropertyValue<String> name() {
+        return name;
+    }
+
+    protected PropertyValue<Person> spouse() {
+        return spouse;
+    }
+
     @Override
     protected Person construct() {
         return new Person(name.get(), gender.get());
@@ -60,5 +79,6 @@ public final class PersonBuilder extends AbstractBuilder<Person> {
     @Override
     protected void assign(Person instance) {
         instance.setSpouse(spouse.get());
+        instance.setAge(age.get());
     }
 }

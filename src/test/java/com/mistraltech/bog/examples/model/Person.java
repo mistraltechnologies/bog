@@ -42,7 +42,8 @@ public class Person {
     public String toString() {
         return "Person{" +
                 "name='" + name + '\'' +
-                ", spouse=" + spouse +
+                // Just display name of spouse to avoid infinite recursion...
+                ", spouse=" + (spouse == null ? null : spouse.getName()) +
                 ", gender=" + gender +
                 ", age=" + age +
                 '}';

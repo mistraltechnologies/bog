@@ -2,7 +2,7 @@ package com.mistraltech.bog.core.picker;
 
 import java.util.Random;
 
-public class IntegerValuePicker extends CachedValuePicker<Integer> implements ValuePicker<Integer> {
+public class IntegerValuePicker implements ValuePicker<Integer> {
     private int minValue;
     private int maxValue;
 
@@ -17,7 +17,7 @@ public class IntegerValuePicker extends CachedValuePicker<Integer> implements Va
     }
 
     @Override
-    protected Integer pickOnce() {
+    public Integer pick() {
         // TODO check limits of range
         int range = maxValue - minValue;
         int n = new Random().nextInt(range);

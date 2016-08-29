@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 public class RoundRobinValuePicker<T> implements ValuePicker<T> {
 
     private final T[] values;
+
     private int index = 0;
 
     private RoundRobinValuePicker(T[] values) {

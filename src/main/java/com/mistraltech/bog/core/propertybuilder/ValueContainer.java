@@ -1,10 +1,7 @@
 package com.mistraltech.bog.core.propertybuilder;
 
 import com.mistraltech.bog.core.Builder;
-import com.mistraltech.bog.core.PreFabricatedBuilder;
 import com.mistraltech.bog.core.picker.ValuePicker;
-
-import java.util.Objects;
 
 import static com.mistraltech.bog.core.PreFabricatedBuilder.preFabricated;
 import static com.mistraltech.bog.core.picker.NullValuePicker.nullValuePicker;

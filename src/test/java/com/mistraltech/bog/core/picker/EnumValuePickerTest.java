@@ -30,11 +30,11 @@ public class EnumValuePickerTest {
             remaining.remove(picker.pick());
         }
     }
-}
 
-enum X {
-}
+    private enum X {
+    }
 
-enum Y {
-    A, B, C;
+    private enum Y {
+        A, B, C;
+    }
 }

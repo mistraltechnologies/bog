@@ -14,7 +14,7 @@ package com.mistraltech.bog.core;
  *
  * @param <T> The type of object this builder returns.
  */
-public abstract class AbstractBuilder<T> implements Builder<T> {
+public abstract class AbstractBuilder<T> implements TwoPhaseBuilder<T> {
 
     private T instance;
 
@@ -25,6 +25,7 @@ public abstract class AbstractBuilder<T> implements Builder<T> {
      *
      * @return a fully constructed instance of T
      */
+    @Override
     public final T build() {
         create();
         return update();
@@ -36,6 +37,7 @@ public abstract class AbstractBuilder<T> implements Builder<T> {
      *
      * @return a new instance of T
      */
+    @Override
     public final T create() {
         instance = construct();
         return instance;
@@ -46,6 +48,7 @@ public abstract class AbstractBuilder<T> implements Builder<T> {
      *
      * @return the most recently created instance of T
      */
+    @Override
     public final T update() {
         if (instance == null) {
             throw new IllegalStateException("Not created");

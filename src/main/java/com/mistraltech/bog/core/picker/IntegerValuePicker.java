@@ -7,7 +7,10 @@ public class IntegerValuePicker implements ValuePicker<Integer> {
     private int maxValue;
 
     private IntegerValuePicker(int minValue, int maxValue) {
-        // TODO check minValue <= maxValue
+        if (maxValue < minValue) {
+            throw new IllegalArgumentException("Invalid range");
+        }
+
         this.minValue = minValue;
         this.maxValue = maxValue;
     }
@@ -18,8 +21,7 @@ public class IntegerValuePicker implements ValuePicker<Integer> {
 
     @Override
     public Integer pick() {
-        // TODO check limits of range
-        int range = maxValue - minValue;
+        int range = maxValue - minValue + 1;
         int n = new Random().nextInt(range);
         return minValue + n;
     }

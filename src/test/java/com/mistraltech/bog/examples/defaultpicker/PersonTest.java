@@ -16,8 +16,6 @@ public class PersonTest {
     public void canCreatePerson() {
         Person bob = aPerson().build();
 
-        System.out.println(bob);
-
         assertThat(bob, is(aPersonThat()
                 .hasGender(anyOf(equalTo(Gender.Male), equalTo(Gender.Female)))
                 .hasName(anyOf(equalTo("Bob"), equalTo("Bill")))));

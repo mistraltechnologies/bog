@@ -2,18 +2,18 @@ package com.mistraltech.bog.examples.extended.builder;
 
 import com.mistraltech.bog.core.AbstractBuilder;
 import com.mistraltech.bog.core.Builder;
-import com.mistraltech.bog.core.propertybuilder.PropertyBuilder;
+import com.mistraltech.bog.core.propertybuilder.ValueContainer;
 import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
 
-import static com.mistraltech.bog.core.propertybuilder.PropertyBuilder.propertyBuilder;
+import static com.mistraltech.bog.core.propertybuilder.ValueContainer.valueContainer;
 
 public abstract class AbstractPersonBuilder<R extends AbstractPersonBuilder, T extends Person> extends AbstractBuilder<T> {
-    private PropertyBuilder<String> name = propertyBuilder("Bob");
+    private ValueContainer<String> name = ValueContainer.valueContainer("Bob");
 
-    private PropertyBuilder<Person> spouse = propertyBuilder();
+    private ValueContainer<Person> spouse = valueContainer();
 
-    private PropertyBuilder<Gender> gender = propertyBuilder(Gender.Male);
+    private ValueContainer<Gender> gender = ValueContainer.valueContainer(Gender.Male);
 
     protected AbstractPersonBuilder() {
     }
@@ -48,21 +48,21 @@ public abstract class AbstractPersonBuilder<R extends AbstractPersonBuilder, T e
         return self();
     }
 
-    protected PropertyBuilder<String> getName() {
+    protected ValueContainer<String> getName() {
         return name;
     }
 
-    protected PropertyBuilder<Person> getSpouse() {
+    protected ValueContainer<Person> getSpouse() {
         return spouse;
     }
 
-    protected PropertyBuilder<Gender> getGender() {
+    protected ValueContainer<Gender> getGender() {
         return gender;
     }
 
     @Override
     protected void assign(T instance) {
-        instance.setSpouse(spouse.get());
+        instance.setSpouse(spouse.take());
     }
 
     public static final class PersonBuilder extends AbstractPersonBuilder<PersonBuilder, Person> {
@@ -82,8 +82,8 @@ public abstract class AbstractPersonBuilder<R extends AbstractPersonBuilder, T e
         }
 
         protected Person construct() {
-            return new Person(getName().get(),
-                    getGender().get());
+            return new Person(getName().take(),
+                    getGender().take());
         }
     }
 }

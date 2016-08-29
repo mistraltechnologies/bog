@@ -2,16 +2,16 @@ package com.mistraltech.bog.examples.iface.builder;
 
 import com.mistraltech.bog.core.AbstractBuilder;
 import com.mistraltech.bog.core.Builder;
-import com.mistraltech.bog.core.propertybuilder.PropertyBuilder;
+import com.mistraltech.bog.core.propertybuilder.ValueContainer;
 import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
 
 public class PersonBuilderImpl extends AbstractBuilder<Person> implements PersonBuilder {
-    private final PropertyBuilder<String> name = PropertyBuilder.propertyBuilder(getDefaultName());
+    private final ValueContainer<String> name = ValueContainer.valueContainer(getDefaultName());
 
-    private final PropertyBuilder<Person> spouse = PropertyBuilder.propertyBuilder();
+    private final ValueContainer<Person> spouse = ValueContainer.valueContainer();
 
-    private final PropertyBuilder<Gender> gender = PropertyBuilder.propertyBuilder(getDefaultGender());
+    private final ValueContainer<Gender> gender = ValueContainer.valueContainer(getDefaultGender());
 
     PersonBuilderImpl() {
     }
@@ -48,11 +48,11 @@ public class PersonBuilderImpl extends AbstractBuilder<Person> implements Person
 
     @Override
     protected Person construct() {
-        return new Person(name.get(), gender.get());
+        return new Person(name.take(), gender.take());
     }
 
     @Override
     protected void assign(Person instance) {
-        instance.setSpouse(spouse.get());
+        instance.setSpouse(spouse.take());
     }
 }

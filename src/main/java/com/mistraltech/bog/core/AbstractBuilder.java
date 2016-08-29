@@ -15,18 +15,37 @@ package com.mistraltech.bog.core;
  * @param <T> The type of object this builder returns.
  */
 public abstract class AbstractBuilder<T> implements Builder<T> {
+
     private T instance;
 
-    public final T create() {
-        instance = construct();
-        return instance;
-    }
-
+    /**
+     * Creates a newly constructed instance of type T.
+     * <p>
+     * This method is equivalent to calling create() followed by update().
+     *
+     * @return a fully constructed instance of T
+     */
     public final T build() {
         create();
         return update();
     }
 
+    /**
+     * Creates an instance of type T but does not invoke any setters. The reference to the most recently created
+     * instance is retained and used in a subsequent call to update().
+     *
+     * @return a new instance of T
+     */
+    public final T create() {
+        instance = construct();
+        return instance;
+    }
+
+    /**
+     * Invokes the property setters on the most recently created instance.
+     *
+     * @return the most recently created instance of T
+     */
     public final T update() {
         if (instance == null) {
             throw new IllegalStateException("Not created");
@@ -37,7 +56,19 @@ public abstract class AbstractBuilder<T> implements Builder<T> {
         return instance;
     }
 
+    /**
+     * Template method for constructing a new instance of T. Subclasses should implement this method by invoking an
+     * appropriate constructor and passing values managed by the builder.
+     *
+     * @return a new instance of T
+     */
     protected abstract T construct();
 
+    /**
+     * Template method for invoking property setters on an instance of T. Subclasses should implement this method
+     * by calling all property setters with values managed by the builder.
+     *
+     * @param instance the instance to update
+     */
     protected abstract void assign(T instance);
 }

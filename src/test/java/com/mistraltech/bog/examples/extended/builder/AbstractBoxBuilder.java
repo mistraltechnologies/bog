@@ -2,13 +2,13 @@ package com.mistraltech.bog.examples.extended.builder;
 
 import com.mistraltech.bog.core.AbstractBuilder;
 import com.mistraltech.bog.core.Builder;
-import com.mistraltech.bog.core.propertybuilder.PropertyBuilder;
+import com.mistraltech.bog.core.propertybuilder.ValueContainer;
 import com.mistraltech.bog.examples.model.Box;
 
-import static com.mistraltech.bog.core.propertybuilder.PropertyBuilder.propertyBuilder;
+import static com.mistraltech.bog.core.propertybuilder.ValueContainer.valueContainer;
 
 public abstract class AbstractBoxBuilder<P1, R extends AbstractBoxBuilder<P1, R, T>, T extends Box<P1>> extends AbstractBuilder<T> {
-    protected PropertyBuilder<P1> contents = propertyBuilder();
+    protected ValueContainer<P1> contents = valueContainer();
 
     protected AbstractBoxBuilder() {
     }
@@ -35,7 +35,7 @@ public abstract class AbstractBoxBuilder<P1, R extends AbstractBoxBuilder<P1, R,
     @Override
     protected void assign(T instance) {
         if (contents.hasValue()) {
-            instance.setContents(contents.get());
+            instance.setContents(contents.take());
         }
     }
 

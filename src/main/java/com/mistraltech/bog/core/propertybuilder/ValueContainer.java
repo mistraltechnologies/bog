@@ -6,6 +6,7 @@ import com.mistraltech.bog.core.picker.ValuePicker;
 
 import java.util.Objects;
 
+import static com.mistraltech.bog.core.PreFabricatedBuilder.preFabricated;
 import static com.mistraltech.bog.core.picker.NullValuePicker.nullValuePicker;
 import static com.mistraltech.bog.core.picker.SingleValuePicker.singleValuePicker;
 import static java.util.Objects.requireNonNull;
@@ -148,7 +149,7 @@ public final class ValueContainer<T> implements ValueProvider<T> {
      * @return reference to self
      */
     public ValueContainer<T> set(T value) {
-        this.valueBuilder = new PreFabricatedBuilder<T>(value);
+        this.valueBuilder = preFabricated(value);
         clearPreviewValue();
         return this;
     }

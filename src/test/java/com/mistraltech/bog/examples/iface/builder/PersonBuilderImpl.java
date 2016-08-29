@@ -2,7 +2,7 @@ package com.mistraltech.bog.examples.iface.builder;
 
 import com.mistraltech.bog.core.AbstractBuilder;
 import com.mistraltech.bog.core.Builder;
-import com.mistraltech.bog.core.PropertyBuilder;
+import com.mistraltech.bog.core.propertybuilder.PropertyBuilder;
 import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
 

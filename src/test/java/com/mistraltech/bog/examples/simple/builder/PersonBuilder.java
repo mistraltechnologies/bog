@@ -2,11 +2,11 @@ package com.mistraltech.bog.examples.simple.builder;
 
 import com.mistraltech.bog.core.AbstractBuilder;
 import com.mistraltech.bog.core.Builder;
-import com.mistraltech.bog.core.PropertyBuilder;
+import com.mistraltech.bog.core.propertybuilder.PropertyBuilder;
 import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
 
-import static com.mistraltech.bog.core.PropertyBuilder.propertyBuilder;
+import static com.mistraltech.bog.core.propertybuilder.PropertyBuilder.propertyBuilder;
 
 public final class PersonBuilder extends AbstractBuilder<Person> {
     private PropertyBuilder<String> name = propertyBuilder("Bob");

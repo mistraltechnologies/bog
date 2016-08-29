@@ -2,11 +2,11 @@ package com.mistraltech.bog.examples.defaultpicker.builder;
 
 import com.mistraltech.bog.core.AbstractBuilder;
 import com.mistraltech.bog.core.Builder;
-import com.mistraltech.bog.core.PropertyBuilder;
+import com.mistraltech.bog.core.propertybuilder.PropertyBuilder;
 import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
 
-import static com.mistraltech.bog.core.PropertyBuilder.propertyBuilder;
+import static com.mistraltech.bog.core.propertybuilder.PropertyBuilder.propertyBuilder;
 import static com.mistraltech.bog.core.picker.EnumValuePicker.enumPicker;
 import static com.mistraltech.bog.core.picker.RegexStringValuePicker.regexStringValuePicker;
 

@@ -7,11 +7,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 
-import static com.mistraltech.bog.core.picker.ArrayValuePicker.arrayPicker;
 import static com.mistraltech.bog.core.picker.EnumValuePicker.enumPicker;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 public class EnumValuePickerTest {
 

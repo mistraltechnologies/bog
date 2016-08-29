@@ -1,6 +1,5 @@
 package com.mistraltech.bog.core.picker;
 
-import java.util.Objects;
 import java.util.Random;
 
 import static java.util.Objects.requireNonNull;

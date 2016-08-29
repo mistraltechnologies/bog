@@ -9,7 +9,7 @@ public class RegexStringValuePicker implements ValuePicker<String> {
 
     protected RegexStringValuePicker(String regex) {
         requireNonNull(regex);
-        generex  = new Generex(regex);
+        generex = new Generex(regex);
     }
 
     public static RegexStringValuePicker regexStringValuePicker(String regex) {

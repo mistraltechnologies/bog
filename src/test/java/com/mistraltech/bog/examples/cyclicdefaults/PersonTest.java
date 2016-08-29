@@ -1,10 +1,8 @@
 package com.mistraltech.bog.examples.cyclicdefaults;
 
 import com.mistraltech.bog.examples.cyclicdefaults.builder.PersonBuilder;
-import com.mistraltech.bog.examples.matcher.PersonMatcher;
 import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
-import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
 import static com.mistraltech.bog.examples.cyclicdefaults.builder.PersonBuilder.aPerson;

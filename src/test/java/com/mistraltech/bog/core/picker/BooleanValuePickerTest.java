@@ -35,6 +35,6 @@ public class BooleanValuePickerTest {
             }
         }
 
-        assertThat(trueCount / (double)iterations, is(closeTo(0.5, 0.1)));
+        assertThat(trueCount / (double) iterations, is(closeTo(0.5, 0.1)));
     }
 }

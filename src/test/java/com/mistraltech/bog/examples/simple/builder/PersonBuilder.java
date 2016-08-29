@@ -10,7 +10,9 @@ import static com.mistraltech.bog.core.propertybuilder.PropertyBuilder.propertyB
 
 public final class PersonBuilder extends AbstractBuilder<Person> {
     private PropertyBuilder<String> name = propertyBuilder("Bob");
+
     private PropertyBuilder<Person> spouse = propertyBuilder();
+
     private PropertyBuilder<Gender> gender = propertyBuilder(Gender.Male);
 
     private PersonBuilder() {

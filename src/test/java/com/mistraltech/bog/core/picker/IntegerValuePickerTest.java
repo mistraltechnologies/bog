@@ -1,6 +1,5 @@
 package com.mistraltech.bog.core.picker;
 
-import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import java.util.Set;
@@ -39,7 +38,7 @@ public class IntegerValuePickerTest {
 
         IntegerValuePicker picker = IntegerValuePicker.integerValuePicker(minValue, maxValue);
 
-        while(remaining.size() > 0) {
+        while (remaining.size() > 0) {
             Integer pick = picker.pick();
             assertThat(pick, is(greaterThanOrEqualTo(minValue)));
             assertThat(pick, is(lessThanOrEqualTo(maxValue)));

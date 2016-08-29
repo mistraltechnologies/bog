@@ -4,6 +4,7 @@ import java.util.Random;
 
 public class IntegerValuePicker implements ValuePicker<Integer> {
     private int minValue;
+
     private int maxValue;
 
     private IntegerValuePicker(int minValue, int maxValue) {

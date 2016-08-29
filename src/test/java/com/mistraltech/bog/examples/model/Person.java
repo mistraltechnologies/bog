@@ -4,8 +4,11 @@ import java.beans.ConstructorProperties;
 
 public class Person {
     private String name;
+
     private Person spouse;
+
     private Gender gender;
+
     private int age;
 
     @ConstructorProperties({"name", "gender"})

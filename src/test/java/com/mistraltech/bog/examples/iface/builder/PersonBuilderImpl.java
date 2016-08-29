@@ -8,7 +8,9 @@ import com.mistraltech.bog.examples.model.Person;
 
 public class PersonBuilderImpl extends AbstractBuilder<Person> implements PersonBuilder {
     private final PropertyBuilder<String> name = PropertyBuilder.propertyBuilder(getDefaultName());
+
     private final PropertyBuilder<Person> spouse = PropertyBuilder.propertyBuilder();
+
     private final PropertyBuilder<Gender> gender = PropertyBuilder.propertyBuilder(getDefaultGender());
 
     PersonBuilderImpl() {

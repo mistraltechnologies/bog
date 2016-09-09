@@ -2,6 +2,7 @@ package com.mistraltech.bog.examples.iface.builder;
 
 import com.mistraltech.bog.core.Builder;
 import com.mistraltech.bog.core.TwoPhaseBuilder;
+import com.mistraltech.bog.core.annotation.ConstructorParameter;
 import com.mistraltech.bog.core.picker.ValuePicker;
 import com.mistraltech.bog.core.propertybuilder.ValueContainer;
 import com.mistraltech.bog.examples.model.Gender;
@@ -17,8 +18,10 @@ public interface PersonBuilder extends TwoPhaseBuilder<Person> {
 
     PersonBuilder from(Person template);
 
+    @ConstructorParameter(0)
     PersonBuilder withName(String name);
 
+    @ConstructorParameter(1)
     PersonBuilder withSpouse(Person spouse);
 
     PersonBuilder withSpouse(Builder<? extends Person> spouseBuilder);

@@ -14,14 +14,14 @@ import static com.mistraltech.bog.core.propertybuilder.ValueContainer.valueConta
 public final class PersonBuilder extends AbstractBuilder<Person> {
     private ValueContainer<Person> spouse = valueContainer();
 
-    private ValueContainer<Gender> gender = ValueContainer.valueContainer(() ->
+    private ValueContainer<Gender> gender = valueContainer(() ->
             spouse.preview() == null ?
                     EnumValuePicker.enumPicker(Gender.class).pick() : (spouse.preview().getGender() == Gender.Male ?
                     Gender.Female : Gender.Male));
 
-    private ValueContainer<Integer> age = ValueContainer.valueContainer(integerValuePicker(18, 40));
+    private ValueContainer<Integer> age = valueContainer(integerValuePicker(18, 40));
 
-    private ValueContainer<String> name = ValueContainer.valueContainer(() -> gender.preview() == Gender.Male ? "Bill" : "Bob");
+    private ValueContainer<String> name = valueContainer(() -> gender.preview() == Gender.Male ? "Bill" : "Bob");
 
     private PersonBuilder() {
     }

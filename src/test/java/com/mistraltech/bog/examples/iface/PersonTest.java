@@ -16,18 +16,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class PersonTest {
     @Test
     public void canCreatePerson() {
-        Person bob = aPerson().withName("Bob").build();
-        assertThat(bob, is(aPersonThat().hasName(equalTo("Bob"))));
-    }
-
-    @Test
-    public void canCreateHusbandAndWife() {
-        PersonBuilder maryBuilder = aPerson().withName("Mary");
-        Person bob = aPerson().withName("Bob").withSpouse(maryBuilder.create()).build();
-        Person mary = maryBuilder.withSpouse(bob).update();
-
-        assertThat(mary, is(aPersonThat().hasSpouse(sameInstance(bob))));
-        assertThat(bob, is(aPersonThat().hasSpouse(sameInstance(mary))));
+        Person bob = aPerson().build();
+        assertThat(bob, is(aPersonThat().hasGender(Gender.Female).hasName(equalTo("Bob"))));
     }
 
     @Test

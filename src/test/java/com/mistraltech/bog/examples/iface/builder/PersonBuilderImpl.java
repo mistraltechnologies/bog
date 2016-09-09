@@ -47,6 +47,11 @@ public class PersonBuilderImpl extends AbstractBuilder<Person> implements Person
     }
 
     @Override
+    public ValueContainer<Gender> getGender() {
+        return gender;
+    }
+
+    @Override
     protected Person construct() {
         return new Person(name.take(), gender.take());
     }

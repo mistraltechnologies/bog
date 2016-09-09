@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 public @interface BuildsProperty {
     /**
-     * The namne of the property that is built
+     * The name of the property that is built
      *
      * @return the built property name
      */

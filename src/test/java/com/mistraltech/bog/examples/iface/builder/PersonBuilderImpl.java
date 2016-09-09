@@ -16,10 +16,11 @@ public class PersonBuilderImpl extends AbstractBuilder<Person> implements Person
     PersonBuilderImpl() {
     }
 
-    PersonBuilderImpl(Person template) {
+    public PersonBuilder from(Person template) {
         withName(template.getName());
         withSpouse(template.getSpouse());
         withGender(template.getGender());
+        return this;
     }
 
     @Override

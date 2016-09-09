@@ -11,15 +11,11 @@ import static com.mistraltech.bog.core.picker.SingleValuePicker.singleValuePicke
 
 public interface PersonBuilder extends TwoPhaseBuilder<Person> {
 
-    // TODO: return an instance of the PersonBuilder class generated from this interface
     static PersonBuilder aPerson() {
         return new PersonBuilderImpl();
     }
 
-    // TODO: return an instance of the PersonBuilder class generated from this interface and populated from template
-    static PersonBuilder aPersonFrom(Person template) {
-        return new PersonBuilderImpl(template);
-    }
+    PersonBuilder from(Person template);
 
     PersonBuilder withName(String name);
 

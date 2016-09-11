@@ -52,9 +52,60 @@ public class ValueContainerTest {
         assertThat(valueContainer.take(), is(randomInt));
     }
 
-    @Test(expected = NullPointerException.class)
-    public void cannotCreateWithNullParameter() {
-        valueContainer(null);
+    @Test
+    public void canCreateWithBooleanType() {
+        ValueContainer<Boolean> valueContainer = valueContainer(boolean.class);
+
+        assertThat(valueContainer.take(), is(false));
+    }
+
+    @Test
+    public void canCreateWithByteType() {
+        ValueContainer<Byte> valueContainer = valueContainer(byte.class);
+
+        assertThat(valueContainer.take(), is((byte) 0));
+    }
+
+    @Test
+    public void canCreateWithCharType() {
+        ValueContainer<Character> valueContainer = valueContainer(char.class);
+
+        assertThat(valueContainer.take(), is((char) 0));
+    }
+
+    @Test
+    public void canCreateWithDoubleType() {
+        ValueContainer<Double> valueContainer = valueContainer(double.class);
+
+        assertThat(valueContainer.take(), is(0D));
+    }
+
+    @Test
+    public void canCreateWithFloatType() {
+        ValueContainer<Float> valueContainer = valueContainer(float.class);
+
+        assertThat(valueContainer.take(), is(0F));
+    }
+
+    @Test
+    public void canCreateWithIntType() {
+        ValueContainer<Integer> valueContainer = valueContainer(int.class);
+
+        assertThat(valueContainer.take(), is(0));
+    }
+
+    @Test
+    public void canCreateWithLongType() {
+        ValueContainer<Long> valueContainer = valueContainer(long.class);
+
+        assertThat(valueContainer.take(), is(0L));
+    }
+
+    @Test
+    public void canCreateWithShortType() {
+        ValueContainer<Short> valueContainer = valueContainer(short.class);
+
+        assertThat(valueContainer.take(), is((short) 0));
     }
 
     @Test

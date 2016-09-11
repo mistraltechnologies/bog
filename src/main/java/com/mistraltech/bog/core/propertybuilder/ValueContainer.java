@@ -2,6 +2,10 @@ package com.mistraltech.bog.core.propertybuilder;
 
 import com.mistraltech.bog.core.Builder;
 import com.mistraltech.bog.core.picker.ValuePicker;
+import com.sun.javafx.collections.UnmodifiableObservableMap;
+
+import java.util.Collections;
+import java.util.HashMap;
 
 import static com.mistraltech.bog.core.PreFabricatedBuilder.preFabricated;
 import static com.mistraltech.bog.core.picker.NullValuePicker.nullValuePicker;
@@ -24,7 +28,8 @@ import static java.util.Objects.requireNonNull;
  * assigned when the ValueContainer is constructed either by passing a ValuePicker instance or by passing a
  * default value. A default picker can also be assigned after construction by calling
  * {@link ValueContainer#setDefault(ValuePicker)}, {@link ValueContainer#setDefault(T)} or
- * {@link ValueContainer#setDefaultNull()}. If no default picker is assigned, a default value of null is used.
+ * {@link ValueContainer#setDefaultNull()}. If no default picker is assigned, a default value of null is used for
+ * object types and the natural java default values are used for primitive types.
  * <p>
  * If the default picker has a randomised algorithm for choosing a value, the caller may get a different result
  * each time take() is called. There are scenarios where it is desireable
@@ -37,6 +42,8 @@ import static java.util.Objects.requireNonNull;
  * @param <T> the type of value to be supplied
  */
 public final class ValueContainer<T> implements ValueProvider<T> {
+    private static final HashMap<Class<?>, Object> PRIMITIVES_TO_DEFAULTS = new HashMap<>();
+
     private Builder<? extends T> valueBuilder;
 
     private ValuePicker<? extends T> defaultPicker;
@@ -47,6 +54,17 @@ public final class ValueContainer<T> implements ValueProvider<T> {
 
     private ValueContainer(ValuePicker<? extends T> defaultPicker) {
         this.defaultPicker = defaultPicker;
+    }
+
+    static {
+        PRIMITIVES_TO_DEFAULTS.put(boolean.class, Boolean.FALSE);
+        PRIMITIVES_TO_DEFAULTS.put(byte.class, (byte) 0);
+        PRIMITIVES_TO_DEFAULTS.put(char.class, (char) 0);
+        PRIMITIVES_TO_DEFAULTS.put(double.class, 0D);
+        PRIMITIVES_TO_DEFAULTS.put(float.class, 0F);
+        PRIMITIVES_TO_DEFAULTS.put(int.class, 0);
+        PRIMITIVES_TO_DEFAULTS.put(long.class, 0L);
+        PRIMITIVES_TO_DEFAULTS.put(short.class, (short) 0);
     }
 
     /**
@@ -80,6 +98,30 @@ public final class ValueContainer<T> implements ValueProvider<T> {
      */
     public static <T> ValueContainer<T> valueContainer() {
         return valueContainer(nullValuePicker());
+    }
+
+    /**
+     * Factory method returning an instance with an assigned default picker that picks a value
+     * appropriate to the supplied class. If the class is a primitive, the natural default value of
+     * the primitive is returned. If the class is an object type, the default will be null.
+     *
+     * @param <T> the type of value to be supplied
+     * @return an instance with a default value of null
+     */
+    public static <T> ValueContainer<T> valueContainer(Class<T> clazz) {
+        ValuePicker<T> defaultPicker;
+
+        if (clazz.isPrimitive()) {
+            defaultPicker = singleValuePicker(getDefaultForPrimitive(clazz));
+        } else {
+            defaultPicker = nullValuePicker();
+        }
+
+        return valueContainer(defaultPicker);
+    }
+
+    private static <T> T getDefaultForPrimitive(Class<T> clazz) {
+        return (T) PRIMITIVES_TO_DEFAULTS.get(clazz);
     }
 
     /**

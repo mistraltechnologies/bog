@@ -13,67 +13,88 @@ public class AbstractBuilderTest {
 
     @Test
     public void buildReturnsFullyConstructedInstance() {
-        BooleanBox bb = new BooleanBoxBuilder().build();
+        IntegerBox box = new IntegerBoxBuilder().build();
 
-        assertTrue(bb.isSet());
+        assertTrue(box.isSet());
     }
 
     @Test
-    public void subsequentCallToBuildReturnsDifferentInstance() {
-        BooleanBoxBuilder bbBuilder = new BooleanBoxBuilder();
-        BooleanBox bb1 = bbBuilder.build();
-        BooleanBox bb2 = bbBuilder.build();
+    public void subsequentCallToBuildReturnsNewlyConstructedInstance() {
+        IntegerBoxBuilder builder = new IntegerBoxBuilder();
+        IntegerBox box1 = builder.build();
+        IntegerBox box2 = builder.build();
 
-        assertThat(bb1, is(not(sameInstance(bb2))));
+        assertThat(box1, is(not(sameInstance(box2))));
     }
 
     @Test
     public void createReturnsConstructedButUnassignedInstance() {
-        BooleanBox bb = new BooleanBoxBuilder().create();
+        IntegerBox box = new IntegerBoxBuilder().create();
 
-        assertFalse(bb.isSet());
+        assertFalse(box.isSet());
     }
 
     @Test(expected = IllegalStateException.class)
     public void cannotUpdateBeforeCreate() {
-        BooleanBoxBuilder bbBuilder = new BooleanBoxBuilder();
+        IntegerBoxBuilder builder = new IntegerBoxBuilder();
 
-        bbBuilder.update();
+        builder.update();
     }
 
     @Test
     public void updateReturnsAssignedInstance() {
-        BooleanBoxBuilder bbBuilder = new BooleanBoxBuilder();
-        BooleanBox bb1 = bbBuilder.create();
+        IntegerBoxBuilder builder = new IntegerBoxBuilder();
+        IntegerBox box1 = builder.create();
 
-        BooleanBox bb2 = bbBuilder.update();
+        IntegerBox box2 = builder.update();
 
-        assertTrue(bb1.isSet());
-        assertThat(bb1, is(sameInstance(bb2)));
+        assertTrue(box1.isSet());
+        assertThat(box1, is(sameInstance(box2)));
     }
 
-    private static class BooleanBox {
-        private boolean value = false;
+    @Test
+    public void updateCallsPostUpdate() {
+        IntegerBoxBuilder builder = new IntegerBoxBuilder();
+        builder.create();
 
-        public void set() {
-            value = true;
+        int value = builder.update().getValue();
+
+        assertThat(builder.count, is(value + 1));
+    }
+
+
+    private static class IntegerBox {
+        private Integer value = null;
+
+        public int getValue() {
+            return value;
+        }
+
+        public void setValue(int value) {
+            this.value = value;
         }
 
         public boolean isSet() {
-            return value;
+            return value != null;
         }
     }
 
-    private static class BooleanBoxBuilder extends AbstractBuilder<BooleanBox> {
+    private static class IntegerBoxBuilder extends AbstractBuilder<IntegerBox> {
+        private int count = 0;
 
         @Override
-        protected BooleanBox construct() {
-            return new BooleanBox();
+        protected IntegerBox construct() {
+            return new IntegerBox();
         }
 
         @Override
-        protected void assign(BooleanBox instance) {
-            instance.set();
+        protected void assign(IntegerBox instance) {
+            instance.setValue(count);
+        }
+
+        @Override
+        protected void postUpdate() {
+            count++;
         }
     }
 }

@@ -11,6 +11,10 @@ package com.mistraltech.bog.core;
  * <p>
  * Subclasses are required to implement {@link AbstractBuilder#construct()}, which is called in the create phase,
  * and {@link AbstractBuilder#assign(Object)}, which is called in the update phase.
+ * <p>
+ * The last part of the update phase is a call to postUpdate(). Subclasses can override this method to implement
+ * implementation-specific behaviour following the completion of a build process such as resetting the builder
+ * state.
  *
  * @param <T> The type of object this builder returns.
  */
@@ -56,7 +60,12 @@ public abstract class AbstractBuilder<T> implements TwoPhaseBuilder<T> {
 
         assign(instance);
 
+        postUpdate();
+
         return instance;
+    }
+
+    protected void postUpdate() {
     }
 
     /**

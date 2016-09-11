@@ -62,7 +62,7 @@ public abstract class AbstractPersonBuilder<R extends AbstractPersonBuilder, T e
 
     @Override
     protected void assign(T instance) {
-        instance.setSpouse(spouse.take());
+        instance.setSpouse(spouse.get());
     }
 
     public static final class PersonBuilder extends AbstractPersonBuilder<PersonBuilder, Person> {
@@ -82,8 +82,8 @@ public abstract class AbstractPersonBuilder<R extends AbstractPersonBuilder, T e
         }
 
         protected Person construct() {
-            return new Person(getName().take(),
-                    getGender().take());
+            return new Person(getName().get(),
+                    getGender().get());
         }
     }
 }

@@ -4,7 +4,6 @@ import com.mistraltech.bog.core.AbstractBuilder;
 import com.mistraltech.bog.core.Builder;
 import com.mistraltech.bog.core.picker.EnumValuePicker;
 import com.mistraltech.bog.core.propertybuilder.ValueContainer;
-import com.mistraltech.bog.core.propertybuilder.ValueProvider;
 import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
 
@@ -15,13 +14,13 @@ public final class PersonBuilder extends AbstractBuilder<Person> {
     private ValueContainer<Person> spouse = valueContainer();
 
     private ValueContainer<Gender> gender = valueContainer(() ->
-            spouse.preview() == null ?
-                    EnumValuePicker.enumPicker(Gender.class).pick() : (spouse.preview().getGender() == Gender.Male ?
+            spouse.get() == null ?
+                    EnumValuePicker.enumPicker(Gender.class).pick() : (spouse.get().getGender() == Gender.Male ?
                     Gender.Female : Gender.Male));
 
     private ValueContainer<Integer> age = valueContainer(integerValuePicker(18, 40));
 
-    private ValueContainer<String> name = valueContainer(() -> gender.preview() == Gender.Male ? "Bill" : "Bob");
+    private ValueContainer<String> name = valueContainer(() -> gender.get() == Gender.Male ? "Bill" : "Bob");
 
     private PersonBuilder() {
     }
@@ -59,26 +58,14 @@ public final class PersonBuilder extends AbstractBuilder<Person> {
         return this;
     }
 
-    protected ValueProvider<Integer> age() {
-        return age;
-    }
-
-    protected ValueProvider<String> name() {
-        return name;
-    }
-
-    protected ValueProvider<Person> spouse() {
-        return spouse;
-    }
-
     @Override
     protected Person construct() {
-        return new Person(name.take(), gender.take());
+        return new Person(name.get(), gender.get());
     }
 
     @Override
     protected void assign(Person instance) {
-        instance.setSpouse(spouse.take());
-        instance.setAge(age.take());
+        instance.setSpouse(spouse.get());
+        instance.setAge(age.get());
     }
 }

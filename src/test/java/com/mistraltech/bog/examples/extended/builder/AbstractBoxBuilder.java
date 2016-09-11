@@ -35,7 +35,7 @@ public abstract class AbstractBoxBuilder<P1, R extends AbstractBoxBuilder<P1, R,
     @Override
     protected void assign(T instance) {
         if (contents.hasValue()) {
-            instance.setContents(contents.take());
+            instance.setContents(contents.get());
         }
     }
 

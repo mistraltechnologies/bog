@@ -35,196 +35,177 @@ public class ValueContainerTest {
     public void canCreateWithoutDefault() {
         valueContainer = valueContainer();
 
-        assertThat(valueContainer.take(), is(nullValue()));
+        assertThat(valueContainer.get(), is(nullValue()));
     }
 
     @Test
     public void canCreateWithDefaultValue() {
         valueContainer = valueContainer(randomInt);
 
-        assertThat(valueContainer.take(), is(randomInt));
+        assertThat(valueContainer.get(), is(randomInt));
     }
 
     @Test
     public void canCreateWithDefaultValuePicker() {
         valueContainer = valueContainer(singleValuePicker(randomInt));
 
-        assertThat(valueContainer.take(), is(randomInt));
+        assertThat(valueContainer.get(), is(randomInt));
     }
 
     @Test
-    public void canCreateWithBooleanType() {
+    public void getReturnsFalseForPrimitiveBooleanTypeWithoutDefault() {
         ValueContainer<Boolean> valueContainer = valueContainer(boolean.class);
 
-        assertThat(valueContainer.take(), is(false));
+        assertThat(valueContainer.get(), is(false));
     }
 
     @Test
-    public void canCreateWithByteType() {
+    public void getReturnsFalseForPrimitiveByteTypeWithoutDefault() {
         ValueContainer<Byte> valueContainer = valueContainer(byte.class);
 
-        assertThat(valueContainer.take(), is((byte) 0));
+        assertThat(valueContainer.get(), is((byte) 0));
     }
 
     @Test
-    public void canCreateWithCharType() {
+    public void getReturnsFalseForPrimitiveCharTypeWithoutDefault() {
         ValueContainer<Character> valueContainer = valueContainer(char.class);
 
-        assertThat(valueContainer.take(), is((char) 0));
+        assertThat(valueContainer.get(), is((char) 0));
     }
 
     @Test
-    public void canCreateWithDoubleType() {
+    public void getReturnsFalseForPrimitiveDoubleTypeWithoutDefault() {
         ValueContainer<Double> valueContainer = valueContainer(double.class);
 
-        assertThat(valueContainer.take(), is(0D));
+        assertThat(valueContainer.get(), is(0D));
     }
 
     @Test
-    public void canCreateWithFloatType() {
+    public void getReturnsFalseForPrimitiveFloatTypeWithoutDefault() {
         ValueContainer<Float> valueContainer = valueContainer(float.class);
 
-        assertThat(valueContainer.take(), is(0F));
+        assertThat(valueContainer.get(), is(0F));
     }
 
     @Test
-    public void canCreateWithIntType() {
+    public void getReturnsFalseForPrimitiveIntTypeWithoutDefault() {
         ValueContainer<Integer> valueContainer = valueContainer(int.class);
 
-        assertThat(valueContainer.take(), is(0));
+        assertThat(valueContainer.get(), is(0));
     }
 
     @Test
-    public void canCreateWithLongType() {
+    public void getReturnsFalseForPrimitiveLongTypeWithoutDefault() {
         ValueContainer<Long> valueContainer = valueContainer(long.class);
 
-        assertThat(valueContainer.take(), is(0L));
+        assertThat(valueContainer.get(), is(0L));
     }
 
     @Test
-    public void canCreateWithShortType() {
+    public void getReturnsFalseForPrimitiveShortTypeWithoutDefault() {
         ValueContainer<Short> valueContainer = valueContainer(short.class);
 
-        assertThat(valueContainer.take(), is((short) 0));
+        assertThat(valueContainer.get(), is((short) 0));
     }
 
     @Test
-    public void takeReturnsAssignedValue() {
+    public void getReturnsAssignedValue() {
         valueContainer.set(randomInt);
 
-        assertThat(valueContainer.take(), is(randomInt));
+        assertThat(valueContainer.get(), is(randomInt));
     }
 
     @Test
-    public void takeReturnsAssignedBuilderValue() {
+    public void getReturnsAssignedBuilderValue() {
         valueContainer.set(new IntBuilder(randomInt));
 
-        assertThat(valueContainer.take(), is(randomInt));
+        assertThat(valueContainer.get(), is(randomInt));
     }
 
     @Test
-    public void takeReturnsNewAssignedBuilderValueEachTime() {
+    public void getReturnsSameAssignedBuilderValueEachTime() {
         valueContainer.set(new IntBuilder(randomInt));
 
-        valueContainer.take();
+        valueContainer.get();
 
-        assertThat(valueContainer.take(), is(randomInt + 1));
+        assertThat(valueContainer.get(), is(randomInt));
     }
 
     @Test
-    public void takeReturnsNewDefaultPickerValueEachTime() {
+    public void getReturnsNewAssignedBuilderValueAfterReset() {
+        valueContainer.set(new IntBuilder(randomInt));
+
+        valueContainer.get();
+
+        valueContainer.reset();
+
+        assertThat(valueContainer.get(), is(randomInt + 1));
+    }
+
+    @Test
+    public void getReturnsSameDefaultPickerValueEachTime() {
         valueContainer.setDefault(roundRobinValuePicker(new Integer[]{1, 2}));
 
-        assertThat(valueContainer.take(), is(1));
-        assertThat(valueContainer.take(), is(2));
+        assertThat(valueContainer.get(), is(1));
+        assertThat(valueContainer.get(), is(1));
     }
 
     @Test
-    public void previewReturnsNullWhenNoAssignedValueAndNoAssignedDefaultPicker() {
-        assertThat(valueContainer.preview(), is(nullValue()));
+    public void getReturnsNewDefaultPickerValueAfterReset() {
+        valueContainer.setDefault(roundRobinValuePicker(new Integer[]{1, 2}));
+
+        valueContainer.get(); // 1
+
+        valueContainer.reset();
+
+        assertThat(valueContainer.get(), is(2));
     }
 
     @Test
-    public void previewReturnsDefaultValueWhenNoAssignedValueAndAssignedDefaultValue() {
+    public void getReturnsDefaultValueWhenNoAssignedValueAndAssignedDefaultValue() {
         valueContainer.setDefault(42);
 
-        assertThat(valueContainer.preview(), is(42));
+        assertThat(valueContainer.get(), is(42));
     }
 
     @Test
-    public void previewReturnsDefaultPickerValueWhenNoAssignedValueAndAssignedDefaultValuePicker() {
+    public void getReturnsDefaultPickerValueWhenNoAssignedValueAndAssignedDefaultValuePicker() {
         valueContainer.setDefault(roundRobinValuePicker(new Integer[]{1, 2}));
 
-        assertThat(valueContainer.preview(), is(1));
+        assertThat(valueContainer.get(), is(1));
     }
 
     @Test
-    public void previewReturnsSameDefaultPickerValueEachTime() {
+    public void getReturnsAssignedValueAfterSet() {
         valueContainer.setDefault(roundRobinValuePicker(new Integer[]{1, 2}));
 
-        valueContainer.preview();
-
-        assertThat(valueContainer.preview(), is(1));
-    }
-
-    @Test
-    public void previewReturnsNewDefaultPickerValueAfterTake() {
-        valueContainer.setDefault(roundRobinValuePicker(new Integer[]{1, 2}));
-
-        valueContainer.preview();
-
-        valueContainer.take();
-
-        assertThat(valueContainer.preview(), is(2));
-    }
-
-    @Test
-    public void takeReturnsSameValueAsPreview() {
-        valueContainer.setDefault(arrayValuePicker(new Integer[]{1, 2, 3, 4, 5}));
-
-        Integer previewValue = valueContainer.preview();
-
-        assertThat(valueContainer.take(), is(previewValue));
-    }
-
-    @Test
-    public void previewReturnsAssignedValueAfterSet() {
-        valueContainer.setDefault(roundRobinValuePicker(new Integer[]{1, 2}));
-
-        valueContainer.preview();
+        valueContainer.get();
 
         valueContainer.set(3);
 
-        assertThat(valueContainer.preview(), is(3));
+        assertThat(valueContainer.get(), is(3));
     }
 
     @Test
-    public void previewReturnsNewDefaultValueAfterSetDefault() {
+    public void getReturnsNewDefaultValueAfterSetDefault() {
         valueContainer.setDefault(1);
 
-        valueContainer.preview();
+        valueContainer.get();
 
         valueContainer.setDefault(2);
 
-        assertThat(valueContainer.preview(), is(2));
+        assertThat(valueContainer.get(), is(2));
     }
 
     @Test
-    public void previewReturnsNewDefaultPickerValueAfterSetDefault() {
+    public void getReturnsNewDefaultPickerValueAfterSetDefault() {
         valueContainer.setDefault(singleValuePicker(1));
 
-        valueContainer.preview();
+        valueContainer.get();
 
         valueContainer.setDefault(singleValuePicker(2));
 
-        assertThat(valueContainer.preview(), is(2));
-    }
-
-    @Test
-    public void setDefaultWithValueSetsDefaultToValue() {
-        valueContainer.setDefault(42);
-
-        assertThat(valueContainer.take(), is(42));
+        assertThat(valueContainer.get(), is(2));
     }
 
     @Test
@@ -233,59 +214,52 @@ public class ValueContainerTest {
     }
 
     @Test
-    public void setDefaultWithValuePickerSetsDefaultToValuePicker() {
-        valueContainer.setDefault(singleValuePicker(42));
-
-        assertThat(valueContainer.take(), is(42));
-    }
-
-    @Test
     public void setDefaultWithValuePickerReturnsThis() {
         assertThat(valueContainer.setDefault(singleValuePicker(42)), is(sameInstance(valueContainer)));
-    }
-
-    @Test
-    public void setDefaultNullSetsDefaultToNull() {
-        valueContainer.setDefault(42);
-        valueContainer.setDefaultNull();
-
-        assertThat(valueContainer.take(), is(nullValue()));
-    }
-
-    @Test
-    public void setDefaultNullReturnsThis() {
-        assertThat(valueContainer.setDefaultNull(), is(sameInstance(valueContainer)));
     }
 
     @Test
     public void hasValueReturnsTrueWhenValueAssigned() {
         valueContainer.set(42);
 
-        assertTrue("before take()", valueContainer.hasValue());
+        assertTrue("before get()", valueContainer.hasValue());
 
-        valueContainer.take();
+        valueContainer.get();
 
-        assertTrue("after take()", valueContainer.hasValue());
+        assertTrue("after get()", valueContainer.hasValue());
     }
 
     @Test
     public void hasValueReturnsTrueWhenValueBuilderAssigned() {
         valueContainer.set(new IntBuilder(randomInt));
 
-        assertTrue("before take()", valueContainer.hasValue());
+        assertTrue("before get()", valueContainer.hasValue());
 
-        valueContainer.take();
+        valueContainer.get();
 
-        assertTrue("after take()", valueContainer.hasValue());
+        assertTrue("after get()", valueContainer.hasValue());
+    }
+
+    @Test
+    public void resetDoesNotUnassignAssignedValue() {
+        valueContainer.set(42);
+
+        valueContainer.reset();
+
+        assertThat(valueContainer.get(), is(42));
+        assertTrue(valueContainer.hasValue());
     }
 
     @Test
     public void hasValueReturnsFalseWhenNoValueAssigned() {
-        assertFalse("before take()", valueContainer.hasValue());
+        assertFalse(valueContainer.hasValue());
+    }
 
-        valueContainer.take();
+    @Test
+    public void gettingValueDoesNotSetHasValue() {
+        valueContainer.get();
 
-        assertFalse("after take()", valueContainer.hasValue());
+        assertFalse(valueContainer.hasValue());
     }
 
     private static class IntBuilder implements Builder<Integer> {

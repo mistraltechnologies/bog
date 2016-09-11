@@ -28,7 +28,7 @@ public interface PersonBuilder extends TwoPhaseBuilder<Person> {
 
     PersonBuilder withGender(Gender gender);
 
-    ValueContainer<Gender> getGender();
+    Gender getGender();
 
     // TODO: how do we go about specifying defaults for a builder generated at runtime?
     // Do we use default methods like below to return a default picker?
@@ -37,7 +37,7 @@ public interface PersonBuilder extends TwoPhaseBuilder<Person> {
     // do we describe complex inter-value relationships?
 
     default ValuePicker<String> getDefaultName() {
-        return () -> getGender().preview() == Gender.Male ? "Bill" : "Bob";
+        return () -> getGender() == Gender.Male ? "Bill" : "Bob";
     }
 
     default ValuePicker<Gender> getDefaultGender() {

@@ -48,8 +48,8 @@ public class PersonBuilderImpl extends AbstractBuilder<Person> implements Person
     }
 
     @Override
-    public ValueContainer<Gender> getGender() {
-        return gender;
+    public Gender getGender() {
+        return gender.preview();
     }
 
     @Override

@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import java.util.Random;
 
-import static com.mistraltech.bog.core.picker.RoundRobinValuePicker.roundRobinValuePicker;
+import static com.mistraltech.bog.core.picker.ArrayRoundRobinValuePicker.roundRobinValuePicker;
 import static com.mistraltech.bog.core.picker.SingleValuePicker.singleValuePicker;
 import static com.mistraltech.bog.core.ValueContainer.valueContainer;
 import static org.hamcrest.CoreMatchers.is;

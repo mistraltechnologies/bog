@@ -6,16 +6,16 @@ import java.util.function.Supplier;
 
 import static java.util.Objects.requireNonNull;
 
-public class RegexStringValuePicker implements Supplier<String> {
+public class RegexStringRandomValuePicker implements Supplier<String> {
     private final Generex generex;
 
-    protected RegexStringValuePicker(String regex) {
+    protected RegexStringRandomValuePicker(String regex) {
         requireNonNull(regex);
         generex = new Generex(regex);
     }
 
-    public static RegexStringValuePicker regexStringValuePicker(String regex) {
-        return new RegexStringValuePicker(regex);
+    public static RegexStringRandomValuePicker regexStringValuePicker(String regex) {
+        return new RegexStringRandomValuePicker(regex);
     }
 
     @Override

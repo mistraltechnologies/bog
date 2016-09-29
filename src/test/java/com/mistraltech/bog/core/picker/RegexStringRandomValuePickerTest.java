@@ -5,13 +5,13 @@ import org.junit.Test;
 import java.util.Set;
 import java.util.TreeSet;
 
-import static com.mistraltech.bog.core.picker.RegexStringValuePicker.regexStringValuePicker;
+import static com.mistraltech.bog.core.picker.RegexStringRandomValuePicker.regexStringValuePicker;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.junit.Assert.assertTrue;
 
-public class RegexStringValuePickerTest {
+public class RegexStringRandomValuePickerTest {
 
     @Test(expected = NullPointerException.class)
     public void cannotConstructWithNull() {
@@ -28,7 +28,7 @@ public class RegexStringValuePickerTest {
         final int iterations = 10;
         final String pattern = "[a-z]{5}[0-9]{5}";
 
-        RegexStringValuePicker picker = regexStringValuePicker(pattern);
+        RegexStringRandomValuePicker picker = regexStringValuePicker(pattern);
         Set<String> picks = new TreeSet<>();
 
         for (int i = 0; i < iterations; i++) {

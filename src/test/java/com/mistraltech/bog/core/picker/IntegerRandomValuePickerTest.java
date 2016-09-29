@@ -11,16 +11,16 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 
-public class IntegerValuePickerTest {
+public class IntegerRandomValuePickerTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void cannotConstructWithMaxValueLessThanMinValue() {
-        IntegerValuePicker.integerValuePicker(2, 1);
+        IntegerRandomValuePicker.integerValuePicker(2, 1);
     }
 
     @Test
     public void canConstructWithMinValueEqualToMaxValue() {
-        IntegerValuePicker picker = IntegerValuePicker.integerValuePicker(-3, -3);
+        IntegerRandomValuePicker picker = IntegerRandomValuePicker.integerValuePicker(-3, -3);
 
         assertThat(picker.get(), is(equalTo(-3)));
     }
@@ -36,7 +36,7 @@ public class IntegerValuePickerTest {
             remaining.add(i + minValue);
         }
 
-        IntegerValuePicker picker = IntegerValuePicker.integerValuePicker(minValue, maxValue);
+        IntegerRandomValuePicker picker = IntegerRandomValuePicker.integerValuePicker(minValue, maxValue);
 
         while (remaining.size() > 0) {
             Integer pick = picker.get();

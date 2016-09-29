@@ -3,12 +3,12 @@ package com.mistraltech.bog.core.picker;
 import java.util.Random;
 import java.util.function.Supplier;
 
-public class IntegerValuePicker implements Supplier<Integer> {
+public class IntegerRandomValuePicker implements Supplier<Integer> {
     private int minValue;
-
     private int maxValue;
+    private Random random = new Random();
 
-    private IntegerValuePicker(int minValue, int maxValue) {
+    private IntegerRandomValuePicker(int minValue, int maxValue) {
         if (maxValue < minValue) {
             throw new IllegalArgumentException("Invalid range");
         }
@@ -17,14 +17,14 @@ public class IntegerValuePicker implements Supplier<Integer> {
         this.maxValue = maxValue;
     }
 
-    public static IntegerValuePicker integerValuePicker(int minValue, int maxValue) {
-        return new IntegerValuePicker(minValue, maxValue);
+    public static IntegerRandomValuePicker integerValuePicker(int minValue, int maxValue) {
+        return new IntegerRandomValuePicker(minValue, maxValue);
     }
 
     @Override
     public Integer get() {
         int range = maxValue - minValue + 1;
-        int n = new Random().nextInt(range);
+        int n = random.nextInt(range);
         return minValue + n;
     }
 }

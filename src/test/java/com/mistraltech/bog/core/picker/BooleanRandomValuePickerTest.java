@@ -6,14 +6,14 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.number.IsCloseTo.closeTo;
 
-public class BooleanValuePickerTest {
+public class BooleanRandomValuePickerTest {
 
     @Test(timeout = 1000L)
     public void picksBothTrueAndFalseEventually() {
         boolean truePicked = false;
         boolean falsePicked = false;
 
-        BooleanValuePicker picker = BooleanValuePicker.booleanValuePicker();
+        BooleanRandomValuePicker picker = BooleanRandomValuePicker.booleanValuePicker();
 
         while (!(truePicked && falsePicked)) {
             Boolean pick = picker.get();
@@ -27,7 +27,7 @@ public class BooleanValuePickerTest {
         final int iterations = 10000;
         int trueCount = 0;
 
-        BooleanValuePicker picker = BooleanValuePicker.booleanValuePicker();
+        BooleanRandomValuePicker picker = BooleanRandomValuePicker.booleanValuePicker();
 
         for (int i = 0; i < iterations; i++) {
             if (picker.get()) {

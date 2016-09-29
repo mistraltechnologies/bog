@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 
-import static com.mistraltech.bog.core.picker.EnumValuePicker.enumPicker;
+import static com.mistraltech.bog.core.picker.EnumRandomValuePicker.enumPicker;
 
 public class EnumValuePickerTest {
 
@@ -23,7 +23,7 @@ public class EnumValuePickerTest {
 
     @Test(timeout = 1000L)
     public void picksAllValuesFromEnumEventually() {
-        EnumValuePicker<Y> picker = enumPicker(Y.class);
+        EnumRandomValuePicker<Y> picker = enumPicker(Y.class);
         Set<Y> remaining = new TreeSet<>(Arrays.asList(Y.values()));
 
         while (remaining.size() > 0) {

@@ -5,10 +5,11 @@ import java.util.function.Supplier;
 
 import static java.util.Objects.requireNonNull;
 
-public class ArrayValuePicker<T> implements Supplier<T> {
+public class ArrayRandomValuePicker<T> implements Supplier<T> {
     private T[] values;
+    private Random random = new Random();
 
-    protected ArrayValuePicker(T[] values) {
+    protected ArrayRandomValuePicker(T[] values) {
         requireNonNull(values);
 
         if (values.length == 0) {
@@ -18,13 +19,13 @@ public class ArrayValuePicker<T> implements Supplier<T> {
         this.values = values;
     }
 
-    public static <T> ArrayValuePicker<T> arrayValuePicker(T[] values) {
-        return new ArrayValuePicker<>(values);
+    public static <T> ArrayRandomValuePicker<T> arrayValuePicker(T[] values) {
+        return new ArrayRandomValuePicker<>(values);
     }
 
     @Override
     public T get() {
-        int n = new Random().nextInt(values.length);
+        int n = random.nextInt(values.length);
         return values[n];
     }
 }

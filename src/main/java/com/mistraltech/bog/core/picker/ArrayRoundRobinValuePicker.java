@@ -4,13 +4,13 @@ import java.util.function.Supplier;
 
 import static java.util.Objects.requireNonNull;
 
-public class RoundRobinValuePicker<T> implements Supplier<T> {
+public class ArrayRoundRobinValuePicker<T> implements Supplier<T> {
 
     private final T[] values;
 
     private int index = 0;
 
-    private RoundRobinValuePicker(T[] values) {
+    private ArrayRoundRobinValuePicker(T[] values) {
         requireNonNull(values);
 
         if (values.length == 0) {
@@ -20,8 +20,8 @@ public class RoundRobinValuePicker<T> implements Supplier<T> {
         this.values = values;
     }
 
-    public static <T> RoundRobinValuePicker<T> roundRobinValuePicker(T[] values) {
-        return new RoundRobinValuePicker<>(values);
+    public static <T> ArrayRoundRobinValuePicker<T> roundRobinValuePicker(T[] values) {
+        return new ArrayRoundRobinValuePicker<>(values);
     }
 
     @Override

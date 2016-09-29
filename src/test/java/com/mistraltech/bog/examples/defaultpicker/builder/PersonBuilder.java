@@ -6,8 +6,8 @@ import com.mistraltech.bog.core.ValueContainer;
 import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
 
-import static com.mistraltech.bog.core.picker.EnumValuePicker.enumPicker;
-import static com.mistraltech.bog.core.picker.RegexStringValuePicker.regexStringValuePicker;
+import static com.mistraltech.bog.core.picker.EnumRandomValuePicker.enumPicker;
+import static com.mistraltech.bog.core.picker.RegexStringRandomValuePicker.regexStringValuePicker;
 import static com.mistraltech.bog.core.ValueContainer.valueContainer;
 
 public final class PersonBuilder extends AbstractBuilder<Person> {

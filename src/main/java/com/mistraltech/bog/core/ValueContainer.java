@@ -1,9 +1,7 @@
-package com.mistraltech.bog.core.propertybuilder;
-
-import com.mistraltech.bog.core.Builder;
-import com.mistraltech.bog.core.picker.ValuePicker;
+package com.mistraltech.bog.core;
 
 import java.util.HashMap;
+import java.util.function.Supplier;
 
 import static com.mistraltech.bog.core.PreFabricatedBuilder.preFabricated;
 import static com.mistraltech.bog.core.picker.NullValuePicker.nullValuePicker;
@@ -20,15 +18,14 @@ import static java.util.Objects.requireNonNull;
  * or {@link ValueContainer#set(T)}.
  * <p>
  * If the assigned value is a builder, the value returned by a call to get() will be the result of calling
- * the build() method of the builder. Successive calls to get() will not cause new instances to be built.
- * Instead the value is cached and this cached value returned each time. However, assigning a new value or
- * builder or calling {@link ValueContainer#reset()} will cause
- * the cached value to be discarded. A subsequent call to get() will then re-evaluate the result.
+ * the build() method on the builder. The value is then cached, so successive calls to get() will return the same
+ * instance. Subsequently assigning a new value or builder or calling {@link ValueContainer#reset()} will cause
+ * the cached value to be discarded, causing a subsequent call to get() to re-evaluate the result.
  * <p>
  * The default value returned by a ValueContainer will be chosen by the 'default picker'. A default picker can be
  * assigned when the ValueContainer is constructed either by passing a ValuePicker instance or by passing a
  * default value. A default picker can also be assigned after construction by calling
- * {@link ValueContainer#setDefault(ValuePicker)}, {@link ValueContainer#setDefault(T)}. If no default picker
+ * {@link ValueContainer#setDefault(Supplier)}, {@link ValueContainer#setDefault(T)}. If no default picker
  * is assigned, a default value of null is used for
  * object types and the natural java default values are used for primitive types.
  * <p>
@@ -43,13 +40,13 @@ public final class ValueContainer<T> {
 
     private Builder<? extends T> valueBuilder;
 
-    private ValuePicker<? extends T> defaultPicker;
+    private Supplier<? extends T> defaultPicker;
 
     private boolean evaluated;
 
     private T cachedValue;
 
-    private ValueContainer(ValuePicker<? extends T> defaultPicker) {
+    private ValueContainer(Supplier<? extends T> defaultPicker) {
         this.defaultPicker = defaultPicker;
     }
 
@@ -71,7 +68,7 @@ public final class ValueContainer<T> {
      * @param <T>           the type of value to be supplied
      * @return an instance configured with the supplied default picker
      */
-    public static <T> ValueContainer<T> valueContainer(ValuePicker<? extends T> defaultPicker) {
+    public static <T> ValueContainer<T> valueContainer(Supplier<? extends T> defaultPicker) {
         return new ValueContainer<>(requireNonNull(defaultPicker));
     }
 
@@ -106,7 +103,7 @@ public final class ValueContainer<T> {
      * @return an instance with a default value of null
      */
     public static <T> ValueContainer<T> valueContainer(Class<T> clazz) {
-        ValuePicker<T> defaultPicker;
+        Supplier<T> defaultPicker;
 
         if (clazz.isPrimitive()) {
             defaultPicker = singleValuePicker(getDefaultForPrimitive(clazz));
@@ -147,7 +144,7 @@ public final class ValueContainer<T> {
     }
 
     private T evaluate() {
-        return hasValue() ? valueBuilder.build() : defaultPicker.pick();
+        return hasValue() ? valueBuilder.build() : defaultPicker.get();
     }
 
     /**
@@ -178,7 +175,7 @@ public final class ValueContainer<T> {
      * @param defaultPicker the default picker strategy
      * @return reference to self
      */
-    public ValueContainer<T> setDefault(ValuePicker<? extends T> defaultPicker) {
+    public ValueContainer<T> setDefault(Supplier<? extends T> defaultPicker) {
         this.defaultPicker = defaultPicker;
 
         if (!hasValue()) {

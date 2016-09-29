@@ -1,6 +1,7 @@
 package com.mistraltech.bog.core.propertybuilder;
 
 import com.mistraltech.bog.core.Builder;
+import com.mistraltech.bog.core.ValueContainer;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,7 +10,7 @@ import java.util.Random;
 import static com.mistraltech.bog.core.picker.ArrayValuePicker.arrayValuePicker;
 import static com.mistraltech.bog.core.picker.RoundRobinValuePicker.roundRobinValuePicker;
 import static com.mistraltech.bog.core.picker.SingleValuePicker.singleValuePicker;
-import static com.mistraltech.bog.core.propertybuilder.ValueContainer.valueContainer;
+import static com.mistraltech.bog.core.ValueContainer.valueContainer;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.CoreMatchers.sameInstance;

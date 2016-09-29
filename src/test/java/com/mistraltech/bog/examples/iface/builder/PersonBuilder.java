@@ -4,7 +4,6 @@ import com.mistraltech.bog.core.Builder;
 import com.mistraltech.bog.core.TwoPhaseBuilder;
 import com.mistraltech.bog.core.annotation.ConstructorParameter;
 import com.mistraltech.bog.core.picker.ValuePicker;
-import com.mistraltech.bog.core.propertybuilder.ValueContainer;
 import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
 

@@ -3,12 +3,12 @@ package com.mistraltech.bog.examples.cyclicdefaults.builder;
 import com.mistraltech.bog.core.AbstractBuilder;
 import com.mistraltech.bog.core.Builder;
 import com.mistraltech.bog.core.picker.EnumValuePicker;
-import com.mistraltech.bog.core.propertybuilder.ValueContainer;
+import com.mistraltech.bog.core.ValueContainer;
 import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
 
 import static com.mistraltech.bog.core.picker.IntegerValuePicker.integerValuePicker;
-import static com.mistraltech.bog.core.propertybuilder.ValueContainer.valueContainer;
+import static com.mistraltech.bog.core.ValueContainer.valueContainer;
 
 public final class PersonBuilder extends AbstractBuilder<Person> {
     private ValueContainer<Person> spouse = valueContainer();

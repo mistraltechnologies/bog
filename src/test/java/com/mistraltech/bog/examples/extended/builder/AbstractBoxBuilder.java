@@ -2,10 +2,10 @@ package com.mistraltech.bog.examples.extended.builder;
 
 import com.mistraltech.bog.core.AbstractBuilder;
 import com.mistraltech.bog.core.Builder;
-import com.mistraltech.bog.core.propertybuilder.ValueContainer;
+import com.mistraltech.bog.core.ValueContainer;
 import com.mistraltech.bog.examples.model.Box;
 
-import static com.mistraltech.bog.core.propertybuilder.ValueContainer.valueContainer;
+import static com.mistraltech.bog.core.ValueContainer.valueContainer;
 
 public abstract class AbstractBoxBuilder<P1, R extends AbstractBoxBuilder<P1, R, T>, T extends Box<P1>> extends AbstractBuilder<T> {
     protected ValueContainer<P1> contents = valueContainer();

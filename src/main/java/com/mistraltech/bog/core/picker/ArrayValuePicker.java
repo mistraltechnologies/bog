@@ -1,10 +1,11 @@
 package com.mistraltech.bog.core.picker;
 
 import java.util.Random;
+import java.util.function.Supplier;
 
 import static java.util.Objects.requireNonNull;
 
-public class ArrayValuePicker<T> implements ValuePicker<T> {
+public class ArrayValuePicker<T> implements Supplier<T> {
     private T[] values;
 
     protected ArrayValuePicker(T[] values) {
@@ -22,7 +23,7 @@ public class ArrayValuePicker<T> implements ValuePicker<T> {
     }
 
     @Override
-    public T pick() {
+    public T get() {
         int n = new Random().nextInt(values.length);
         return values[n];
     }

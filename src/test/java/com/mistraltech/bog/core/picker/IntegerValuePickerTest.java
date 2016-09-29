@@ -22,7 +22,7 @@ public class IntegerValuePickerTest {
     public void canConstructWithMinValueEqualToMaxValue() {
         IntegerValuePicker picker = IntegerValuePicker.integerValuePicker(-3, -3);
 
-        assertThat(picker.pick(), is(equalTo(-3)));
+        assertThat(picker.get(), is(equalTo(-3)));
     }
 
     @Test(timeout = 1000L)
@@ -39,7 +39,7 @@ public class IntegerValuePickerTest {
         IntegerValuePicker picker = IntegerValuePicker.integerValuePicker(minValue, maxValue);
 
         while (remaining.size() > 0) {
-            Integer pick = picker.pick();
+            Integer pick = picker.get();
             assertThat(pick, is(greaterThanOrEqualTo(minValue)));
             assertThat(pick, is(lessThanOrEqualTo(maxValue)));
 

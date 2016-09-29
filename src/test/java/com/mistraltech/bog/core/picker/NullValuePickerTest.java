@@ -12,6 +12,6 @@ public class NullValuePickerTest {
     public void picksNull() {
         NullValuePicker<Object> picker = NullValuePicker.nullValuePicker();
 
-        assertThat(picker.pick(), is(nullValue()));
+        assertThat(picker.get(), is(nullValue()));
     }
 }

@@ -15,7 +15,7 @@ public final class PersonBuilder extends AbstractBuilder<Person> {
 
     private ValueContainer<Gender> gender = valueContainer(() ->
             spouse.get() == null ?
-                    EnumValuePicker.enumPicker(Gender.class).pick() : (spouse.get().getGender() == Gender.Male ?
+                    EnumValuePicker.enumPicker(Gender.class).get() : (spouse.get().getGender() == Gender.Male ?
                     Gender.Female : Gender.Male));
 
     private ValueContainer<Integer> age = valueContainer(integerValuePicker(18, 40));

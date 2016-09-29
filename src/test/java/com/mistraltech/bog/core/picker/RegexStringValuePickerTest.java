@@ -32,7 +32,7 @@ public class RegexStringValuePickerTest {
         Set<String> picks = new TreeSet<>();
 
         for (int i = 0; i < iterations; i++) {
-            String pick = picker.pick();
+            String pick = picker.get();
 
             assertTrue(pick.matches(pattern));
 

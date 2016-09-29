@@ -1,8 +1,9 @@
 package com.mistraltech.bog.core.picker;
 
 import java.util.Random;
+import java.util.function.Supplier;
 
-public class IntegerValuePicker implements ValuePicker<Integer> {
+public class IntegerValuePicker implements Supplier<Integer> {
     private int minValue;
 
     private int maxValue;
@@ -21,7 +22,7 @@ public class IntegerValuePicker implements ValuePicker<Integer> {
     }
 
     @Override
-    public Integer pick() {
+    public Integer get() {
         int range = maxValue - minValue + 1;
         int n = new Random().nextInt(range);
         return minValue + n;

@@ -1,8 +1,10 @@
 package com.mistraltech.bog.core.picker;
 
+import java.util.function.Supplier;
+
 import static java.util.Objects.requireNonNull;
 
-public class RoundRobinValuePicker<T> implements ValuePicker<T> {
+public class RoundRobinValuePicker<T> implements Supplier<T> {
 
     private final T[] values;
 
@@ -23,7 +25,7 @@ public class RoundRobinValuePicker<T> implements ValuePicker<T> {
     }
 
     @Override
-    public T pick() {
+    public T get() {
         T value = values[index];
         index = (index + 1) % values.length;
         return value;

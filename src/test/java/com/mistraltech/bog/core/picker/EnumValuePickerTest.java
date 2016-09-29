@@ -27,7 +27,7 @@ public class EnumValuePickerTest {
         Set<Y> remaining = new TreeSet<>(Arrays.asList(Y.values()));
 
         while (remaining.size() > 0) {
-            remaining.remove(picker.pick());
+            remaining.remove(picker.get());
         }
     }
 

@@ -28,7 +28,7 @@ public class ArrayValuePickerTest {
     public void picksFromSingleValueArray() {
         ArrayValuePicker<String> picker = arrayValuePicker(new String[]{"Bob"});
 
-        assertThat(picker.pick(), is(equalTo("Bob")));
+        assertThat(picker.get(), is(equalTo("Bob")));
     }
 
     @Test(timeout = 1000L)
@@ -39,7 +39,7 @@ public class ArrayValuePickerTest {
         Set<Integer> remaining = new TreeSet<>(Arrays.asList(values));
 
         while (remaining.size() > 0) {
-            remaining.remove(picker.pick());
+            remaining.remove(picker.get());
         }
     }
 }

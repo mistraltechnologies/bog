@@ -14,7 +14,7 @@ public class SingleValuePickerTest {
         // Don't do this. Use NullValuePicker instead.
         SingleValuePicker<Object> picker = SingleValuePicker.singleValuePicker(null);
 
-        assertThat(picker.pick(), is(nullValue()));
+        assertThat(picker.get(), is(nullValue()));
     }
 
     @Test
@@ -23,6 +23,6 @@ public class SingleValuePickerTest {
 
         SingleValuePicker<Object> picker = SingleValuePicker.singleValuePicker(obj);
 
-        assertThat(picker.pick(), is(sameInstance(obj)));
+        assertThat(picker.get(), is(sameInstance(obj)));
     }
 }

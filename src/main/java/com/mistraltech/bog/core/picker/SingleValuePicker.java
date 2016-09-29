@@ -1,6 +1,8 @@
 package com.mistraltech.bog.core.picker;
 
-public class SingleValuePicker<T> implements ValuePicker<T> {
+import java.util.function.Supplier;
+
+public class SingleValuePicker<T> implements Supplier<T> {
     private T value;
 
     public SingleValuePicker(T value) {
@@ -12,7 +14,7 @@ public class SingleValuePicker<T> implements ValuePicker<T> {
     }
 
     @Override
-    public T pick() {
+    public T get() {
         return value;
     }
 }

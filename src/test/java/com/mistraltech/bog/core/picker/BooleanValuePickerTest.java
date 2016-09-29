@@ -16,7 +16,7 @@ public class BooleanValuePickerTest {
         BooleanValuePicker picker = BooleanValuePicker.booleanValuePicker();
 
         while (!(truePicked && falsePicked)) {
-            Boolean pick = picker.pick();
+            Boolean pick = picker.get();
             truePicked |= pick;
             falsePicked |= !pick;
         }
@@ -30,7 +30,7 @@ public class BooleanValuePickerTest {
         BooleanValuePicker picker = BooleanValuePicker.booleanValuePicker();
 
         for (int i = 0; i < iterations; i++) {
-            if (picker.pick()) {
+            if (picker.get()) {
                 trueCount++;
             }
         }

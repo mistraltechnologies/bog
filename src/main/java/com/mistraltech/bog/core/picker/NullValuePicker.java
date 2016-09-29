@@ -1,6 +1,8 @@
 package com.mistraltech.bog.core.picker;
 
-public class NullValuePicker<T> implements ValuePicker<T> {
+import java.util.function.Supplier;
+
+public class NullValuePicker<T> implements Supplier<T> {
 
     private NullValuePicker() {
     }
@@ -10,7 +12,7 @@ public class NullValuePicker<T> implements ValuePicker<T> {
     }
 
     @Override
-    public T pick() {
+    public T get() {
         return null;
     }
 }

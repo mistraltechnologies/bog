@@ -25,7 +25,7 @@ public class RoundRobinValuePickerTest {
         RoundRobinValuePicker<Integer> picker = roundRobinValuePicker(values);
 
         for (int i = 0; i < 10; i++) {
-            assertThat(picker.pick(), is(i % 5));
+            assertThat(picker.get(), is(i % 5));
         }
     }
 }

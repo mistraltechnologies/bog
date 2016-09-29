@@ -3,9 +3,10 @@ package com.mistraltech.bog.examples.iface.builder;
 import com.mistraltech.bog.core.Builder;
 import com.mistraltech.bog.core.TwoPhaseBuilder;
 import com.mistraltech.bog.core.annotation.ConstructorParameter;
-import com.mistraltech.bog.core.picker.ValuePicker;
 import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
+
+import java.util.function.Supplier;
 
 import static com.mistraltech.bog.core.picker.SingleValuePicker.singleValuePicker;
 
@@ -35,11 +36,11 @@ public interface PersonBuilder extends TwoPhaseBuilder<Person> {
     // Do we use annotations to specify a value picker class for each with... method, but then how
     // do we describe complex inter-value relationships?
 
-    default ValuePicker<String> getDefaultName() {
+    default Supplier<String> getDefaultName() {
         return () -> getGender() == Gender.Male ? "Bill" : "Bob";
     }
 
-    default ValuePicker<Gender> getDefaultGender() {
+    default Supplier<Gender> getDefaultGender() {
         return singleValuePicker(Gender.Female);
     }
 

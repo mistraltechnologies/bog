@@ -35,6 +35,6 @@ public class EnumValuePickerTest {
     }
 
     private enum Y {
-        A, B, C;
+        A, B, C
     }
 }

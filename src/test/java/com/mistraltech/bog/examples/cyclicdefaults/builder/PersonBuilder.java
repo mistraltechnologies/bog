@@ -2,21 +2,21 @@ package com.mistraltech.bog.examples.cyclicdefaults.builder;
 
 import com.mistraltech.bog.core.AbstractBuilder;
 import com.mistraltech.bog.core.Builder;
-import com.mistraltech.bog.core.picker.EnumRandomValuePicker;
 import com.mistraltech.bog.core.ValueContainer;
 import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
 
-import static com.mistraltech.bog.core.picker.IntegerRandomValuePicker.integerValuePicker;
 import static com.mistraltech.bog.core.ValueContainer.valueContainer;
+import static com.mistraltech.bog.core.picker.EnumRandomValuePicker.enumPicker;
+import static com.mistraltech.bog.core.picker.IntegerRandomValuePicker.integerValuePicker;
 
 public final class PersonBuilder extends AbstractBuilder<Person> {
     private ValueContainer<Person> spouse = valueContainer();
 
     private ValueContainer<Gender> gender = valueContainer(() ->
             spouse.get() == null ?
-                    EnumRandomValuePicker.enumPicker(Gender.class).get() : (spouse.get().getGender() == Gender.Male ?
-                    Gender.Female : Gender.Male));
+                    enumPicker(Gender.class).get() :
+                    (spouse.get().getGender() == Gender.Male ? Gender.Female : Gender.Male));
 
     private ValueContainer<Integer> age = valueContainer(integerValuePicker(18, 40));
 

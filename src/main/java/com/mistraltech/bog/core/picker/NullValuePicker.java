@@ -8,7 +8,7 @@ public class NullValuePicker<T> implements Supplier<T> {
     }
 
     public static <T> NullValuePicker<T> nullValuePicker() {
-        return new NullValuePicker<T>();
+        return new NullValuePicker<>();
     }
 
     @Override

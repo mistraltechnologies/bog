@@ -48,15 +48,15 @@ public abstract class AbstractBoxBuilder<P1, R extends AbstractBoxBuilder<P1, R,
         }
 
         public static <T> BoxBuilder<T> aBox() {
-            return new BoxBuilder<T>();
+            return new BoxBuilder<>();
         }
 
         public static <T> BoxBuilder<T> aBoxFrom(Box<T> template) {
-            return new BoxBuilder<T>(template);
+            return new BoxBuilder<>(template);
         }
 
         protected Box<T> construct() {
-            return new Box<T>();
+            return new Box<>();
         }
     }
 }

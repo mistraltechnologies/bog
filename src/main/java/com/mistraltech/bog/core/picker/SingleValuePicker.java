@@ -10,7 +10,7 @@ public class SingleValuePicker<T> implements Supplier<T> {
     }
 
     public static <T> SingleValuePicker<T> singleValuePicker(T value) {
-        return new SingleValuePicker<T>(value);
+        return new SingleValuePicker<>(value);
     }
 
     @Override

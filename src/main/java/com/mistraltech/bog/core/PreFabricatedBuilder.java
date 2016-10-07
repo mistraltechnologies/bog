@@ -16,7 +16,7 @@ public class PreFabricatedBuilder<T> implements Builder<T> {
     }
 
     public static <T> PreFabricatedBuilder<T> preFabricated(T value) {
-        return new PreFabricatedBuilder<T>(value);
+        return new PreFabricatedBuilder<>(value);
     }
 
     @Override

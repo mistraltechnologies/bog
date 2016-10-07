@@ -10,9 +10,9 @@ public class Account {
 
     private int balance;
 
-    private Set<Person> associateHoldersSet = new HashSet<Person>();
+    private Set<Person> associateHoldersSet = new HashSet<>();
 
-    private List<Person> associateHoldersList = new ArrayList<Person>();
+    private List<Person> associateHoldersList = new ArrayList<>();
 
     private AccountManager accountManager;
 

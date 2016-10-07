@@ -6,7 +6,7 @@ import java.util.List;
 
 public class AccountManager extends Person {
 
-    private List<Account> managedAccounts = new ArrayList<Account>();
+    private List<Account> managedAccounts = new ArrayList<>();
 
     public AccountManager(String name) {
         super(name, Gender.Female);

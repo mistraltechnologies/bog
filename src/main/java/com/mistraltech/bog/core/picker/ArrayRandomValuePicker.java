@@ -19,7 +19,7 @@ public class ArrayRandomValuePicker<T> implements Supplier<T> {
         this.values = values;
     }
 
-    public static <T> ArrayRandomValuePicker<T> arrayValuePicker(T[] values) {
+    public static <T> ArrayRandomValuePicker<T> arrayRandomValuePicker(T[] values) {
         return new ArrayRandomValuePicker<>(values);
     }
 

@@ -15,12 +15,12 @@ public class IntegerRandomValuePickerTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void cannotConstructWithMaxValueLessThanMinValue() {
-        IntegerRandomValuePicker.integerValuePicker(2, 1);
+        IntegerRandomValuePicker.integerRandomValuePicker(2, 1);
     }
 
     @Test
     public void canConstructWithMinValueEqualToMaxValue() {
-        IntegerRandomValuePicker picker = IntegerRandomValuePicker.integerValuePicker(-3, -3);
+        IntegerRandomValuePicker picker = IntegerRandomValuePicker.integerRandomValuePicker(-3, -3);
 
         assertThat(picker.get(), is(equalTo(-3)));
     }
@@ -36,7 +36,7 @@ public class IntegerRandomValuePickerTest {
             remaining.add(i + minValue);
         }
 
-        IntegerRandomValuePicker picker = IntegerRandomValuePicker.integerValuePicker(minValue, maxValue);
+        IntegerRandomValuePicker picker = IntegerRandomValuePicker.integerRandomValuePicker(minValue, maxValue);
 
         while (remaining.size() > 0) {
             Integer pick = picker.get();

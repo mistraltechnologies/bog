@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import java.util.Random;
 
-import static com.mistraltech.bog.core.picker.ArrayRoundRobinValuePicker.roundRobinValuePicker;
+import static com.mistraltech.bog.core.picker.ArrayRoundRobinValuePicker.arrayRoundRobinValuePicker;
 import static com.mistraltech.bog.core.picker.SingleValuePicker.singleValuePicker;
 import static com.mistraltech.bog.core.ValueContainer.valueContainer;
 import static org.hamcrest.CoreMatchers.is;
@@ -144,7 +144,7 @@ public class ValueContainerTest {
 
     @Test
     public void getReturnsSameDefaultPickerValueEachTime() {
-        valueContainer.setDefault(roundRobinValuePicker(new Integer[]{1, 2}));
+        valueContainer.setDefault(arrayRoundRobinValuePicker(new Integer[]{1, 2}));
 
         assertThat(valueContainer.get(), is(1));
         assertThat(valueContainer.get(), is(1));
@@ -152,7 +152,7 @@ public class ValueContainerTest {
 
     @Test
     public void getReturnsNewDefaultPickerValueAfterReset() {
-        valueContainer.setDefault(roundRobinValuePicker(new Integer[]{1, 2}));
+        valueContainer.setDefault(arrayRoundRobinValuePicker(new Integer[]{1, 2}));
 
         valueContainer.get(); // 1
 
@@ -170,14 +170,14 @@ public class ValueContainerTest {
 
     @Test
     public void getReturnsDefaultPickerValueWhenNoAssignedValueAndAssignedDefaultValuePicker() {
-        valueContainer.setDefault(roundRobinValuePicker(new Integer[]{1, 2}));
+        valueContainer.setDefault(arrayRoundRobinValuePicker(new Integer[]{1, 2}));
 
         assertThat(valueContainer.get(), is(1));
     }
 
     @Test
     public void getReturnsAssignedValueAfterSet() {
-        valueContainer.setDefault(roundRobinValuePicker(new Integer[]{1, 2}));
+        valueContainer.setDefault(arrayRoundRobinValuePicker(new Integer[]{1, 2}));
 
         valueContainer.get();
 

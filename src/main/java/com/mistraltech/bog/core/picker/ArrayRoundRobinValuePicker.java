@@ -20,7 +20,7 @@ public class ArrayRoundRobinValuePicker<T> implements Supplier<T> {
         this.values = values;
     }
 
-    public static <T> ArrayRoundRobinValuePicker<T> roundRobinValuePicker(T[] values) {
+    public static <T> ArrayRoundRobinValuePicker<T> arrayRoundRobinValuePicker(T[] values) {
         return new ArrayRoundRobinValuePicker<>(values);
     }
 

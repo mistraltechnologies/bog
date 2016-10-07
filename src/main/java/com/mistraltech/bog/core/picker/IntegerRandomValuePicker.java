@@ -17,7 +17,7 @@ public class IntegerRandomValuePicker implements Supplier<Integer> {
         this.maxValue = maxValue;
     }
 
-    public static IntegerRandomValuePicker integerValuePicker(int minValue, int maxValue) {
+    public static IntegerRandomValuePicker integerRandomValuePicker(int minValue, int maxValue) {
         return new IntegerRandomValuePicker(minValue, maxValue);
     }
 

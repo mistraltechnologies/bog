@@ -5,7 +5,7 @@ public class EnumRandomValuePicker<E extends Enum<E>> extends ArrayRandomValuePi
         super(enumClass.getEnumConstants());
     }
 
-    public static <E extends Enum<E>> EnumRandomValuePicker<E> enumPicker(Class<E> enumClass) {
+    public static <E extends Enum<E>> EnumRandomValuePicker<E> enumRandomValuePicker(Class<E> enumClass) {
         return new EnumRandomValuePicker<>(enumClass);
     }
 }

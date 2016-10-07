@@ -14,7 +14,7 @@ public class RegexStringRandomValuePicker implements Supplier<String> {
         generex = new Generex(regex);
     }
 
-    public static RegexStringRandomValuePicker regexStringValuePicker(String regex) {
+    public static RegexStringRandomValuePicker regexStringRandomValuePicker(String regex) {
         return new RegexStringRandomValuePicker(regex);
     }
 

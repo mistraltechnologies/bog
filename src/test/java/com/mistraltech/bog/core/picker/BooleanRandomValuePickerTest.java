@@ -13,7 +13,7 @@ public class BooleanRandomValuePickerTest {
         boolean truePicked = false;
         boolean falsePicked = false;
 
-        BooleanRandomValuePicker picker = BooleanRandomValuePicker.booleanValuePicker();
+        BooleanRandomValuePicker picker = BooleanRandomValuePicker.booleanRandomValuePicker();
 
         while (!(truePicked && falsePicked)) {
             Boolean pick = picker.get();
@@ -27,7 +27,7 @@ public class BooleanRandomValuePickerTest {
         final int iterations = 10000;
         int trueCount = 0;
 
-        BooleanRandomValuePicker picker = BooleanRandomValuePicker.booleanValuePicker();
+        BooleanRandomValuePicker picker = BooleanRandomValuePicker.booleanRandomValuePicker();
 
         for (int i = 0; i < iterations; i++) {
             if (picker.get()) {

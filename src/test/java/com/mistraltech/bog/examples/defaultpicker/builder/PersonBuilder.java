@@ -3,19 +3,24 @@ package com.mistraltech.bog.examples.defaultpicker.builder;
 import com.mistraltech.bog.core.AbstractBuilder;
 import com.mistraltech.bog.core.Builder;
 import com.mistraltech.bog.core.ValueContainer;
+import com.mistraltech.bog.core.picker.IntegerRandomValuePicker;
 import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
 
-import static com.mistraltech.bog.core.picker.EnumRandomValuePicker.enumPicker;
-import static com.mistraltech.bog.core.picker.RegexStringRandomValuePicker.regexStringValuePicker;
+import static com.mistraltech.bog.core.picker.EnumRandomValuePicker.enumRandomValuePicker;
+import static com.mistraltech.bog.core.picker.RegexStringRandomValuePicker.regexStringRandomValuePicker;
 import static com.mistraltech.bog.core.ValueContainer.valueContainer;
 
 public final class PersonBuilder extends AbstractBuilder<Person> {
-    private ValueContainer<String> name = ValueContainer.valueContainer(regexStringValuePicker("Bob|Bill"));
+    private ValueContainer<String> name = ValueContainer.valueContainer(regexStringRandomValuePicker("Bob|Bill"));
 
     private ValueContainer<Person> spouse = valueContainer();
 
-    private ValueContainer<Gender> gender = ValueContainer.valueContainer(enumPicker(Gender.class));
+    private ValueContainer<Gender> gender = ValueContainer.valueContainer(enumRandomValuePicker(Gender.class));
+
+    private ValueContainer<Integer> age = ValueContainer.valueContainer(this::getDefaultAge);
+
+    private IntegerRandomValuePicker ageDefaultPicker = IntegerRandomValuePicker.integerRandomValuePicker(1, 100);
 
     protected PersonBuilder() {
     }
@@ -58,6 +63,10 @@ public final class PersonBuilder extends AbstractBuilder<Person> {
         return this;
     }
 
+    protected Integer getDefaultAge() {
+        return ageDefaultPicker.get();
+    }
+
     @Override
     protected Person construct() {
         return new Person(
@@ -68,5 +77,6 @@ public final class PersonBuilder extends AbstractBuilder<Person> {
     @Override
     protected void assign(Person instance) {
         instance.setSpouse(spouse.get());
+        instance.setAge(age.get());
     }
 }

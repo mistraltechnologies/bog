@@ -9,7 +9,7 @@ public final class BooleanRandomValuePicker implements Supplier<Boolean> {
     private BooleanRandomValuePicker() {
     }
 
-    public static BooleanRandomValuePicker booleanValuePicker() {
+    public static BooleanRandomValuePicker booleanRandomValuePicker() {
         return new BooleanRandomValuePicker();
     }
 

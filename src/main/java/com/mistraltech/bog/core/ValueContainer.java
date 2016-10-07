@@ -30,8 +30,8 @@ import static java.util.Objects.requireNonNull;
  * object types and the natural java default values are used for primitive types.
  * <p>
  * Successive calls to get() will not cause a new default to be picked. However, assigning a new default picker or
- * default value or calling postUpdate() will cause the cached default value to be discarded. A subsequent call to get()
- * will re-evaluate the default value.
+ * default value or calling reset() (such as from a {@link AbstractBuilder#postUpdate()} method) will cause the
+ * cached default value to be discarded. A subsequent call to get() will re-evaluate the default value.
  *
  * @param <T> the type of value to be supplied
  */

@@ -1,4 +1,4 @@
-package com.mistraltech.bog.examples.cyclicdefaults.builder;
+package com.mistraltech.bog.examples.dependentdefaults.builder;
 
 import com.mistraltech.bog.core.AbstractBuilder;
 import com.mistraltech.bog.core.Builder;

@@ -1,11 +1,11 @@
-package com.mistraltech.bog.examples.cyclicdefaults;
+package com.mistraltech.bog.examples.dependentdefaults;
 
-import com.mistraltech.bog.examples.cyclicdefaults.builder.PersonBuilder;
+import com.mistraltech.bog.examples.dependentdefaults.builder.PersonBuilder;
 import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
 import org.junit.Test;
 
-import static com.mistraltech.bog.examples.cyclicdefaults.builder.PersonBuilder.aPerson;
+import static com.mistraltech.bog.examples.dependentdefaults.builder.PersonBuilder.aPerson;
 import static com.mistraltech.bog.examples.matcher.PersonMatcher.aPersonThat;
 import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.CoreMatchers.equalTo;

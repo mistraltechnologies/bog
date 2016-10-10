@@ -2,16 +2,14 @@ package com.mistraltech.bog.examples.defaultpicker.builder;
 
 import com.mistraltech.bog.core.AbstractBuilder;
 import com.mistraltech.bog.core.Builder;
+import com.mistraltech.bog.core.BuilderProperty;
 import com.mistraltech.bog.core.ValueContainer;
 import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
 
-import java.util.Iterator;
-import java.util.NoSuchElementException;
 import java.util.function.Supplier;
 
 import static com.mistraltech.bog.core.picker.EnumRandomValuePicker.enumRandomValuePicker;
-import static com.mistraltech.bog.core.picker.IteratingValuePicker.iteratingValuePicker;
 import static com.mistraltech.bog.core.picker.RegexStringRandomValuePicker.regexStringRandomValuePicker;
 import static com.mistraltech.bog.core.ValueContainer.valueContainer;
 
@@ -65,22 +63,21 @@ public class PersonBuilder extends AbstractBuilder<Person> {
         return this;
     }
 
-    public PersonBuilder setDefaultAge(Supplier<Integer> ageSupplier) {
-        age.setDefault(ageSupplier);
-        return this;
+    public BuilderProperty<Integer> getAge() {
+        return age;
     }
 
     @Override
     protected Person construct() {
         return new Person(
-                name.get(),
-                gender.get());
+                name.value(),
+                gender.value());
     }
 
     @Override
     protected void assign(Person instance) {
-        instance.setSpouse(spouse.get());
-        instance.setAge(age.get());
+        instance.setSpouse(spouse.value());
+        instance.setAge(age.value());
     }
 
     @Override

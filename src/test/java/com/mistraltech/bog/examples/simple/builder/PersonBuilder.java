@@ -53,11 +53,11 @@ public final class PersonBuilder extends AbstractBuilder<Person> {
 
     @Override
     protected Person construct() {
-        return new Person(name.get(), gender.get());
+        return new Person(name.value(), gender.value());
     }
 
     @Override
     protected void assign(Person instance) {
-        instance.setSpouse(spouse.get());
+        instance.setSpouse(spouse.value());
     }
 }

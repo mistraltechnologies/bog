@@ -28,7 +28,9 @@ public class PersonTest {
 
     @Test
     public void canUseIteratorForDefaults() {
-        PersonBuilder builder = aPerson().setDefaultAge(iteratingValuePicker(new Fibonacci(10)));
+        PersonBuilder builder = aPerson();
+
+        builder.getAge().setDefault(iteratingValuePicker(new Fibonacci(10)));
 
         assertThat(builder.build(), is(aPersonThat().hasAge(1)));
         assertThat(builder.build(), is(aPersonThat().hasAge(1)));

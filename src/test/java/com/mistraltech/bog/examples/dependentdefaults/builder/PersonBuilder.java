@@ -14,13 +14,13 @@ public final class PersonBuilder extends AbstractBuilder<Person> {
     private ValueContainer<Person> spouse = valueContainer();
 
     private ValueContainer<Gender> gender = valueContainer(() ->
-            spouse.get() == null ?
+            spouse.value() == null ?
                     enumRandomValuePicker(Gender.class).get() :
-                    (spouse.get().getGender() == Gender.Male ? Gender.Female : Gender.Male));
+                    (spouse.value().getGender() == Gender.Male ? Gender.Female : Gender.Male));
 
     private ValueContainer<Integer> age = valueContainer(integerRandomValuePicker(18, 40));
 
-    private ValueContainer<String> name = valueContainer(() -> gender.get() == Gender.Male ? "Bill" : "Bob");
+    private ValueContainer<String> name = valueContainer(() -> gender.value() == Gender.Male ? "Bill" : "Bob");
 
     private PersonBuilder() {
     }
@@ -60,12 +60,12 @@ public final class PersonBuilder extends AbstractBuilder<Person> {
 
     @Override
     protected Person construct() {
-        return new Person(name.get(), gender.get());
+        return new Person(name.value(), gender.value());
     }
 
     @Override
     protected void assign(Person instance) {
-        instance.setSpouse(spouse.get());
-        instance.setAge(age.get());
+        instance.setSpouse(spouse.value());
+        instance.setAge(age.value());
     }
 }

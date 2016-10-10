@@ -4,6 +4,7 @@ import com.mistraltech.bog.examples.model.AccountManager;
 
 public class AccountManagerBuilder extends AbstractPersonBuilder<AccountManagerBuilder, AccountManager> {
     public AccountManagerBuilder() {
+        getName().setDefault("Steve");
     }
 
     public AccountManagerBuilder(AccountManager template) {
@@ -19,6 +20,6 @@ public class AccountManagerBuilder extends AbstractPersonBuilder<AccountManagerB
     }
 
     protected AccountManager construct() {
-        return new AccountManager(getName().setDefault("Steve").get());
+        return new AccountManager(getName().value());
     }
 }

@@ -2,6 +2,7 @@ package com.mistraltech.bog.examples.extended.builder;
 
 import com.mistraltech.bog.core.AbstractBuilder;
 import com.mistraltech.bog.core.Builder;
+import com.mistraltech.bog.core.BuilderProperty;
 import com.mistraltech.bog.core.ValueContainer;
 import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
@@ -48,21 +49,21 @@ public abstract class AbstractPersonBuilder<R extends AbstractPersonBuilder, T e
         return self();
     }
 
-    protected ValueContainer<String> getName() {
+    protected BuilderProperty<String> getName() {
         return name;
     }
 
-    protected ValueContainer<Person> getSpouse() {
+    protected BuilderProperty<Person> getSpouse() {
         return spouse;
     }
 
-    protected ValueContainer<Gender> getGender() {
+    protected BuilderProperty<Gender> getGender() {
         return gender;
     }
 
     @Override
     protected void assign(T instance) {
-        instance.setSpouse(spouse.get());
+        instance.setSpouse(spouse.value());
     }
 
     public static final class PersonBuilder extends AbstractPersonBuilder<PersonBuilder, Person> {
@@ -82,8 +83,8 @@ public abstract class AbstractPersonBuilder<R extends AbstractPersonBuilder, T e
         }
 
         protected Person construct() {
-            return new Person(getName().get(),
-                    getGender().get());
+            return new Person(getName().value(),
+                    getGender().value());
         }
     }
 }

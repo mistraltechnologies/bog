@@ -2,6 +2,7 @@ package com.mistraltech.bog.examples.iface.builder;
 
 import com.mistraltech.bog.core.AbstractBuilder;
 import com.mistraltech.bog.core.Builder;
+import com.mistraltech.bog.core.BuilderProperty;
 import com.mistraltech.bog.core.ValueContainer;
 import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
@@ -48,17 +49,17 @@ public class PersonBuilderImpl extends AbstractBuilder<Person> implements Person
     }
 
     @Override
-    public Gender getGender() {
-        return gender.get();
+    public BuilderProperty<Gender> getGender() {
+        return gender;
     }
 
     @Override
     protected Person construct() {
-        return new Person(name.get(), gender.get());
+        return new Person(name.value(), gender.value());
     }
 
     @Override
     protected void assign(Person instance) {
-        instance.setSpouse(spouse.get());
+        instance.setSpouse(spouse.value());
     }
 }

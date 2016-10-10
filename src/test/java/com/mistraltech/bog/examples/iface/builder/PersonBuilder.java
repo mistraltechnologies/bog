@@ -1,6 +1,7 @@
 package com.mistraltech.bog.examples.iface.builder;
 
 import com.mistraltech.bog.core.Builder;
+import com.mistraltech.bog.core.BuilderProperty;
 import com.mistraltech.bog.core.TwoPhaseBuilder;
 import com.mistraltech.bog.core.annotation.ConstructorParameter;
 import com.mistraltech.bog.examples.model.Gender;
@@ -28,7 +29,7 @@ public interface PersonBuilder extends TwoPhaseBuilder<Person> {
 
     PersonBuilder withGender(Gender gender);
 
-    Gender getGender();
+    BuilderProperty<Gender> getGender();
 
     // TODO: how do we go about specifying defaults for a builder generated at runtime?
     // Do we use default methods like below to return a default picker?
@@ -37,7 +38,7 @@ public interface PersonBuilder extends TwoPhaseBuilder<Person> {
     // do we describe complex inter-value relationships?
 
     default Supplier<String> getDefaultName() {
-        return () -> getGender() == Gender.Male ? "Bill" : "Bob";
+        return () -> getGender().value() == Gender.Male ? "Bill" : "Bob";
     }
 
     default Supplier<Gender> getDefaultGender() {

@@ -11,16 +11,16 @@ import static java.util.Objects.requireNonNull;
 /**
  * Responsible for holding and providing a value to a caller.
  * <p>
- * The value can be obtained with a call to {@link ValueContainer#get()} and the value returned will be either a
+ * The value can be obtained with a call to {@link ValueContainer#value()} and the value returned will be either a
  * value explicitly assigned or otherwise a default value.
  * <p>
  * Values are explicitly assigned with a call to {@link ValueContainer#set(Builder)}
  * or {@link ValueContainer#set(T)}.
  * <p>
- * If the assigned value is a builder, the value returned by a call to get() will be the result of calling
- * the build() method on the builder. The value is then cached, so successive calls to get() will return the same
+ * If the assigned value is a builder, the value returned by a call to value() will be the result of calling
+ * the build() method on the builder. The value is then cached, so successive calls to value() will return the same
  * instance. Subsequently assigning a new value or builder or calling {@link ValueContainer#reset()} will cause
- * the cached value to be discarded, causing a subsequent call to get() to re-evaluate the result.
+ * the cached value to be discarded, causing a subsequent call to value() to re-evaluate the result.
  * <p>
  * The default value returned by a ValueContainer will be chosen by the 'default picker'. A default picker can be
  * assigned when the ValueContainer is constructed either by passing a ValuePicker instance or by passing a
@@ -29,13 +29,16 @@ import static java.util.Objects.requireNonNull;
  * is assigned, a default value of null is used for
  * object types and the natural java default values are used for primitive types.
  * <p>
- * Successive calls to get() will not cause a new default to be picked. However, assigning a new default picker or
+ * Successive calls to value() will not cause a new default to be picked. However, assigning a new default picker or
  * default value or calling reset() (such as from a {@link AbstractBuilder#postUpdate()} method) will cause the
- * cached default value to be discarded. A subsequent call to get() will re-evaluate the default value.
+ * cached default value to be discarded. A subsequent call to value() will re-evaluate the default value.
+ * <p>
+ * Implements the BuilderProperty interface. Builders should avoid exposing instances as the ValueContainer type,
+ * instead exposing instances as BuilderProperty.
  *
  * @param <T> the type of value to be supplied
  */
-public final class ValueContainer<T> {
+public final class ValueContainer<T> implements BuilderProperty<T> {
     private static final HashMap<Class<?>, Object> PRIMITIVES_TO_DEFAULTS = new HashMap<>();
 
     private Builder<? extends T> valueBuilder;
@@ -114,18 +117,21 @@ public final class ValueContainer<T> {
         return valueContainer(defaultPicker);
     }
 
+    @SuppressWarnings("unchecked")
     private static <T> T getDefaultForPrimitive(Class<T> clazz) {
         return (T) PRIMITIVES_TO_DEFAULTS.get(clazz);
     }
 
     /**
-     * Gets the assigned value if a value or builder has been assigned, otherwise gets a default value using the
-     * assigned default picker. Since the default picker may return a different value for successive calls, so too
-     * may this method.
+     * Gets the effective value. The effective value is the assigned value if a value or has been assigned or builder
+     * result if a builder has been assigned; otherwise gets a default value using the
+     * assigned default picker. The same value will be returned by consecutive calls unless the assigned value or
+     * value builder is changed or the default value picker is changed or reset() is invoked.
      *
      * @return a value
      */
-    public T get() {
+    @Override
+    public T value() {
         if (!evaluated) {
             cachedValue = evaluate();
             evaluated = true;
@@ -144,64 +150,60 @@ public final class ValueContainer<T> {
     }
 
     private T evaluate() {
-        return hasValue() ? valueBuilder.build() : defaultPicker.get();
+        return isAssigned() ? valueBuilder.build() : defaultPicker.get();
     }
 
     /**
      * Assign a builder that will provide the value for this container.
      *
      * @param builder the value builder
-     * @return reference to self
      */
-    public ValueContainer<T> set(Builder<? extends T> builder) {
+    public void set(Builder<? extends T> builder) {
         this.valueBuilder = builder;
         clearCachedValue();
-        return this;
     }
 
     /**
      * Assign a value for this container.
      *
      * @param value the value
-     * @return reference to self
      */
-    public ValueContainer<T> set(T value) {
-        return set(preFabricated(value));
+    public void set(T value) {
+        set(preFabricated(value));
     }
 
     /**
      * Assigns a default picker strategy for choosing a default value.
      *
      * @param defaultPicker the default picker strategy
-     * @return reference to self
      */
-    public ValueContainer<T> setDefault(Supplier<? extends T> defaultPicker) {
+    @Override
+    public void setDefault(Supplier<? extends T> defaultPicker) {
         this.defaultPicker = defaultPicker;
 
-        if (!hasValue()) {
+        if (!isAssigned()) {
             // Only clear the cached value if it is a default value
             clearCachedValue();
         }
-
-        return this;
     }
 
     /**
      * Assigns a default picker strategy that returns only the supplied default value.
      *
      * @param defaultValue the new default value
-     * @return reference to self
      */
-    public ValueContainer<T> setDefault(T defaultValue) {
-        return setDefault(singleValuePicker(defaultValue));
+    @Override
+    public void setDefault(T defaultValue) {
+        setDefault(singleValuePicker(defaultValue));
     }
 
     /**
-     * Whether an explicit value has been assigned.
+     * Whether an explicit value (or value builder) has been assigned.
      *
      * @return true if an explicit value has been assigned; false otherwise.
      */
-    public boolean hasValue() {
+    @Override
+    public boolean isAssigned() {
         return valueBuilder != null;
     }
 

@@ -65,6 +65,10 @@ public abstract class AbstractBuilder<T> implements TwoPhaseBuilder<T> {
         return instance;
     }
 
+    /**
+     * Template method for resetting the builder at the end of the build process. Subclasses should override this
+     * method to reset state ready to build a new instance where appropriate.
+     */
     protected void postUpdate() {
     }
 
@@ -77,10 +81,11 @@ public abstract class AbstractBuilder<T> implements TwoPhaseBuilder<T> {
     protected abstract T construct();
 
     /**
-     * Template method for invoking property setters on an instance of T. Subclasses should implement this method
-     * by calling all property setters with values managed by the builder.
+     * Template method for invoking property setters on an instance of T. Subclasses should override this method
+     * to call all property setters with values managed by the builder.
      *
      * @param instance the instance to update
      */
-    protected abstract void assign(T instance);
+    protected void assign(T instance) {
+    }
 }

@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import java.util.Random;
 
-import static com.mistraltech.bog.core.ValueContainer.valueContainer;
 import static com.mistraltech.bog.core.picker.ArrayRoundRobinValuePicker.arrayRoundRobinValuePicker;
 import static com.mistraltech.bog.core.picker.SingleValuePicker.singleValuePicker;
 import static org.hamcrest.CoreMatchers.is;
@@ -26,83 +25,83 @@ public class ValueContainerTest {
 
     @Before
     public void setUp() {
-        valueContainer = valueContainer();
+        valueContainer = new ValueContainer<>();
         randomInt = random.nextInt();
     }
 
     @Test
     public void canCreateWithoutDefault() {
-        valueContainer = valueContainer();
+        valueContainer = new ValueContainer<>();
 
         assertThat(valueContainer.value(), is(nullValue()));
     }
 
     @Test
     public void canCreateWithDefaultValue() {
-        valueContainer = valueContainer(randomInt);
+        valueContainer = new ValueContainer<>(randomInt);
 
         assertThat(valueContainer.value(), is(randomInt));
     }
 
     @Test
     public void canCreateWithDefaultValuePicker() {
-        valueContainer = valueContainer(singleValuePicker(randomInt));
+        valueContainer = new ValueContainer<>(singleValuePicker(randomInt));
 
         assertThat(valueContainer.value(), is(randomInt));
     }
 
     @Test
     public void getReturnsFalseForPrimitiveBooleanTypeWithoutDefault() {
-        ValueContainer<Boolean> valueContainer = valueContainer(boolean.class);
+        ValueContainer<Boolean> valueContainer = new ValueContainer<>(boolean.class);
 
         assertThat(valueContainer.value(), is(false));
     }
 
     @Test
     public void getReturnsFalseForPrimitiveByteTypeWithoutDefault() {
-        ValueContainer<Byte> valueContainer = valueContainer(byte.class);
+        ValueContainer<Byte> valueContainer = new ValueContainer<>(byte.class);
 
         assertThat(valueContainer.value(), is((byte) 0));
     }
 
     @Test
     public void getReturnsFalseForPrimitiveCharTypeWithoutDefault() {
-        ValueContainer<Character> valueContainer = valueContainer(char.class);
+        ValueContainer<Character> valueContainer = new ValueContainer<>(char.class);
 
         assertThat(valueContainer.value(), is((char) 0));
     }
 
     @Test
     public void getReturnsFalseForPrimitiveDoubleTypeWithoutDefault() {
-        ValueContainer<Double> valueContainer = valueContainer(double.class);
+        ValueContainer<Double> valueContainer = new ValueContainer<>(double.class);
 
         assertThat(valueContainer.value(), is(0D));
     }
 
     @Test
     public void getReturnsFalseForPrimitiveFloatTypeWithoutDefault() {
-        ValueContainer<Float> valueContainer = valueContainer(float.class);
+        ValueContainer<Float> valueContainer = new ValueContainer<>(float.class);
 
         assertThat(valueContainer.value(), is(0F));
     }
 
     @Test
     public void getReturnsFalseForPrimitiveIntTypeWithoutDefault() {
-        ValueContainer<Integer> valueContainer = valueContainer(int.class);
+        ValueContainer<Integer> valueContainer = new ValueContainer<>(int.class);
 
         assertThat(valueContainer.value(), is(0));
     }
 
     @Test
     public void getReturnsFalseForPrimitiveLongTypeWithoutDefault() {
-        ValueContainer<Long> valueContainer = valueContainer(long.class);
+        ValueContainer<Long> valueContainer = new ValueContainer<>(long.class);
 
         assertThat(valueContainer.value(), is(0L));
     }
 
     @Test
     public void getReturnsFalseForPrimitiveShortTypeWithoutDefault() {
-        ValueContainer<Short> valueContainer = valueContainer(short.class);
+        ValueContainer<Short> valueContainer = new ValueContainer<>(short.class);
 
         assertThat(valueContainer.value(), is((short) 0));
     }

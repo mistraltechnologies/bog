@@ -7,20 +7,17 @@ import com.mistraltech.bog.core.ValueContainer;
 import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
 
-import java.util.function.Supplier;
-
 import static com.mistraltech.bog.core.picker.EnumRandomValuePicker.enumRandomValuePicker;
 import static com.mistraltech.bog.core.picker.RegexStringRandomValuePicker.regexStringRandomValuePicker;
-import static com.mistraltech.bog.core.ValueContainer.valueContainer;
 
 public class PersonBuilder extends AbstractBuilder<Person> {
-    private ValueContainer<String> name = ValueContainer.valueContainer(regexStringRandomValuePicker("Bob|Bill"));
+    private ValueContainer<String> name = new ValueContainer<>(regexStringRandomValuePicker("Bob|Bill"));
 
-    private ValueContainer<Person> spouse = valueContainer();
+    private ValueContainer<Person> spouse = new ValueContainer<>();
 
-    private ValueContainer<Gender> gender = ValueContainer.valueContainer(enumRandomValuePicker(Gender.class));
+    private ValueContainer<Gender> gender = new ValueContainer<>(enumRandomValuePicker(Gender.class));
 
-    private ValueContainer<Integer> age = ValueContainer.valueContainer(42);
+    private ValueContainer<Integer> age = new ValueContainer<>(42);
 
     protected PersonBuilder() {
     }

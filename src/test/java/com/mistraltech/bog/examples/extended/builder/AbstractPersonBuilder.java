@@ -7,14 +7,12 @@ import com.mistraltech.bog.core.ValueContainer;
 import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
 
-import static com.mistraltech.bog.core.ValueContainer.valueContainer;
-
 public abstract class AbstractPersonBuilder<R extends AbstractPersonBuilder, T extends Person> extends AbstractBuilder<T> {
-    private ValueContainer<String> name = ValueContainer.valueContainer("Bob");
+    private ValueContainer<String> name = new ValueContainer<>("Bob");
 
-    private ValueContainer<Person> spouse = valueContainer();
+    private ValueContainer<Person> spouse = new ValueContainer<>();
 
-    private ValueContainer<Gender> gender = ValueContainer.valueContainer(Gender.Male);
+    private ValueContainer<Gender> gender = new ValueContainer<>(Gender.Male);
 
     protected AbstractPersonBuilder() {
     }

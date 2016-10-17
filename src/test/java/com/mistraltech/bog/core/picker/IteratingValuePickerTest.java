@@ -2,10 +2,8 @@ package com.mistraltech.bog.core.picker;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
-import static com.mistraltech.bog.core.picker.ArrayRoundRobinValuePicker.arrayRoundRobinValuePicker;
 import static com.mistraltech.bog.core.picker.IteratingValuePicker.iteratingValuePicker;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;

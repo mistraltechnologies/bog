@@ -49,8 +49,38 @@ public final class ValueContainer<T> implements BuilderProperty<T> {
 
     private T cachedValue;
 
-    private ValueContainer(Supplier<? extends T> defaultPicker) {
+    /**
+     * Constructs an instance with a Supplier for providing the default value.
+     *
+     * @param defaultPicker the default value Supplier
+     */
+    public ValueContainer(Supplier<? extends T> defaultPicker) {
         this.defaultPicker = defaultPicker;
+    }
+
+    /**
+     * Constructs an instance with a specified default value.
+     *
+     * @param defaultValue the default value
+     */
+    public ValueContainer(T defaultValue) {
+        this(singleValuePicker(requireNonNull(defaultValue)));
+    }
+
+    /**
+     * Constructs an instance that uses null as its default value.
+     */
+    public ValueContainer() {
+        this(nullValuePicker());
+    }
+
+    /**
+     * Constructs an instance that uses the natural default value for primitive types and null for object types.
+     *
+     * @param clazz the class of property
+     */
+    public ValueContainer(Class<T> clazz) {
+        this(clazz.isPrimitive() ? singleValuePicker(getDefaultForPrimitive(clazz)) : nullValuePicker());
     }
 
     static {
@@ -62,59 +92,6 @@ public final class ValueContainer<T> implements BuilderProperty<T> {
         PRIMITIVES_TO_DEFAULTS.put(int.class, 0);
         PRIMITIVES_TO_DEFAULTS.put(long.class, 0L);
         PRIMITIVES_TO_DEFAULTS.put(short.class, (short) 0);
-    }
-
-    /**
-     * Factory method returning an instance with an assigned default picker.
-     *
-     * @param defaultPicker the default picker
-     * @param <T>           the type of value to be supplied
-     * @return an instance configured with the supplied default picker
-     */
-    public static <T> ValueContainer<T> valueContainer(Supplier<? extends T> defaultPicker) {
-        return new ValueContainer<>(requireNonNull(defaultPicker));
-    }
-
-    /**
-     * Factory method returning an instance with an assigned default value.
-     *
-     * @param defaultValue the default value
-     * @param <T>          the type of value to be supplied
-     * @return an instance configured with the supplied default value
-     */
-    public static <T> ValueContainer<T> valueContainer(T defaultValue) {
-        return valueContainer(singleValuePicker(requireNonNull(defaultValue)));
-    }
-
-    /**
-     * Factory method returning an instance without an assigned default picker or default value. The instance
-     * will use null as its default value.
-     *
-     * @param <T> the type of value to be supplied
-     * @return an instance with a default value of null
-     */
-    public static <T> ValueContainer<T> valueContainer() {
-        return valueContainer(nullValuePicker());
-    }
-
-    /**
-     * Factory method returning an instance with an assigned default picker that picks a value
-     * appropriate to the supplied class. If the class is a primitive, the natural default value of
-     * the primitive is returned. If the class is an object type, the default will be null.
-     *
-     * @param <T> the type of value to be supplied
-     * @return an instance with a default value of null
-     */
-    public static <T> ValueContainer<T> valueContainer(Class<T> clazz) {
-        Supplier<T> defaultPicker;
-
-        if (clazz.isPrimitive()) {
-            defaultPicker = singleValuePicker(getDefaultForPrimitive(clazz));
-        } else {
-            defaultPicker = nullValuePicker();
-        }
-
-        return valueContainer(defaultPicker);
     }
 
     @SuppressWarnings("unchecked")

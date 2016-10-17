@@ -6,21 +6,20 @@ import com.mistraltech.bog.core.ValueContainer;
 import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
 
-import static com.mistraltech.bog.core.ValueContainer.valueContainer;
 import static com.mistraltech.bog.core.picker.EnumRandomValuePicker.enumRandomValuePicker;
 import static com.mistraltech.bog.core.picker.IntegerRandomValuePicker.integerRandomValuePicker;
 
 public final class PersonBuilder extends AbstractBuilder<Person> {
-    private ValueContainer<Person> spouse = valueContainer();
+    private ValueContainer<Person> spouse = new ValueContainer<>();
 
-    private ValueContainer<Gender> gender = valueContainer(() ->
+    private ValueContainer<Gender> gender = new ValueContainer<>(() ->
             spouse.value() == null ?
                     enumRandomValuePicker(Gender.class).get() :
                     (spouse.value().getGender() == Gender.Male ? Gender.Female : Gender.Male));
 
-    private ValueContainer<Integer> age = valueContainer(integerRandomValuePicker(18, 40));
+    private ValueContainer<Integer> age = new ValueContainer<>(integerRandomValuePicker(18, 40));
 
-    private ValueContainer<String> name = valueContainer(() -> gender.value() == Gender.Male ? "Bill" : "Bob");
+    private ValueContainer<String> name = new ValueContainer<>(() -> gender.value() == Gender.Male ? "Bill" : "Bob");
 
     private PersonBuilder() {
     }

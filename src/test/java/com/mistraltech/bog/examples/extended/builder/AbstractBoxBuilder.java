@@ -5,10 +5,8 @@ import com.mistraltech.bog.core.Builder;
 import com.mistraltech.bog.core.ValueContainer;
 import com.mistraltech.bog.examples.model.Box;
 
-import static com.mistraltech.bog.core.ValueContainer.valueContainer;
-
 public abstract class AbstractBoxBuilder<P1, R extends AbstractBoxBuilder<P1, R, T>, T extends Box<P1>> extends AbstractBuilder<T> {
-    protected ValueContainer<P1> contents = valueContainer();
+    protected ValueContainer<P1> contents = new ValueContainer<>();
 
     protected AbstractBoxBuilder() {
     }

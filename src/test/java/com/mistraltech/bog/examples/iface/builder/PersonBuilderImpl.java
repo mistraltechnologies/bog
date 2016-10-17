@@ -8,11 +8,11 @@ import com.mistraltech.bog.examples.model.Gender;
 import com.mistraltech.bog.examples.model.Person;
 
 public class PersonBuilderImpl extends AbstractBuilder<Person> implements PersonBuilder {
-    private final ValueContainer<String> name = ValueContainer.valueContainer(getDefaultName());
+    private final ValueContainer<String> name = new ValueContainer<>(getDefaultName());
 
-    private final ValueContainer<Person> spouse = ValueContainer.valueContainer();
+    private final ValueContainer<Person> spouse = new ValueContainer<>();
 
-    private final ValueContainer<Gender> gender = ValueContainer.valueContainer(getDefaultGender());
+    private final ValueContainer<Gender> gender = new ValueContainer<>(getDefaultGender());
 
     PersonBuilderImpl() {
     }

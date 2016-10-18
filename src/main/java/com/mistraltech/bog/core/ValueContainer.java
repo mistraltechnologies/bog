@@ -38,7 +38,7 @@ import static java.util.Objects.requireNonNull;
  *
  * @param <T> the type of value to be supplied
  */
-public final class ValueContainer<T> implements BuilderProperty<T> {
+public class ValueContainer<T> implements BuilderProperty<T> {
     private static final HashMap<Class<?>, Object> PRIMITIVES_TO_DEFAULTS = new HashMap<>();
 
     private Builder<? extends T> valueBuilder;

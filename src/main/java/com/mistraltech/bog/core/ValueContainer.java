@@ -1,9 +1,12 @@
 package com.mistraltech.bog.core;
 
+import com.mistraltech.bog.core.picker.NaturalDefaultValuePicker;
+
 import java.util.HashMap;
 import java.util.function.Supplier;
 
 import static com.mistraltech.bog.core.PreFabricatedBuilder.preFabricated;
+import static com.mistraltech.bog.core.picker.NaturalDefaultValuePicker.naturalDefault;
 import static com.mistraltech.bog.core.picker.NullValuePicker.nullValuePicker;
 import static com.mistraltech.bog.core.picker.SingleValuePicker.singleValuePicker;
 import static java.util.Objects.requireNonNull;
@@ -39,8 +42,6 @@ import static java.util.Objects.requireNonNull;
  * @param <T> the type of value to be supplied
  */
 public class ValueContainer<T> implements BuilderProperty<T> {
-    private static final HashMap<Class<?>, Object> PRIMITIVES_TO_DEFAULTS = new HashMap<>();
-
     private Builder<? extends T> valueBuilder;
 
     private Supplier<? extends T> defaultPicker;
@@ -80,23 +81,7 @@ public class ValueContainer<T> implements BuilderProperty<T> {
      * @param clazz the class of property
      */
     public ValueContainer(Class<T> clazz) {
-        this(clazz.isPrimitive() ? singleValuePicker(getDefaultForPrimitive(clazz)) : nullValuePicker());
-    }
-
-    static {
-        PRIMITIVES_TO_DEFAULTS.put(boolean.class, Boolean.FALSE);
-        PRIMITIVES_TO_DEFAULTS.put(byte.class, (byte) 0);
-        PRIMITIVES_TO_DEFAULTS.put(char.class, (char) 0);
-        PRIMITIVES_TO_DEFAULTS.put(double.class, 0D);
-        PRIMITIVES_TO_DEFAULTS.put(float.class, 0F);
-        PRIMITIVES_TO_DEFAULTS.put(int.class, 0);
-        PRIMITIVES_TO_DEFAULTS.put(long.class, 0L);
-        PRIMITIVES_TO_DEFAULTS.put(short.class, (short) 0);
-    }
-
-    @SuppressWarnings("unchecked")
-    private static <T> T getDefaultForPrimitive(Class<T> clazz) {
-        return (T) PRIMITIVES_TO_DEFAULTS.get(clazz);
+        this(naturalDefault(clazz));
     }
 
     /**
